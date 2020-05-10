@@ -1,11 +1,5 @@
 # BonApp
 Meal Ordering and Delivery Platform
 
-ofir
 
-
-Jeremy
-
-ofir2
-
-Jeremy2
+Final project by Jeremy Luzon & Ofir Ben Yamin
