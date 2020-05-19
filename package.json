@@ -1,0 +1,23 @@
+{
+  "name": "bonapp",
+  "version": "1.0.0",
+  "description": "Meal Ordering and Delivery Platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./01_BLL/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ofir5551/BonApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ofir5551/BonApp/issues"
+  },
+  "homepage": "https://github.com/ofir5551/BonApp#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15"
+  }
+}
