@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    items: {
+    items: {    // Add validation to quantity and price so it can't be negative (add Item sub-schema?)
         type: Array,
         required: true
     },
@@ -37,12 +37,12 @@ orderSchema.pre("save", async function (next) {
         order.totalPrice += item.price * item.quantity
     })
 
-    let today = new Date();
-    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const today = new Date();
+    let currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 
-    order.date = date
-    order.time = time
+    order.date = currentDate
+    order.time = currentTime
 
     next()
 })
