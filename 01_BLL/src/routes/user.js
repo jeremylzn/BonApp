@@ -3,7 +3,7 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../../../00_DAL/models/user')
 
-// Create a new user
+// Sign up new user
 router.post('/users', async(req, res) => {
     const user = new User(req.body)
 
@@ -17,7 +17,7 @@ router.post('/users', async(req, res) => {
     }
 })
 
-// Get all users
+// Get all users --- ADMIN ONLY 
 router.get('/users', async(req, res) => {
     try {
         const users = await User.find({})
@@ -27,7 +27,7 @@ router.get('/users', async(req, res) => {
     }
 })
 
-// Delete a user by id
+// Delete a user by id --- ADMIN ONLY
 router.delete('/users/:id', async(req, res) => {
     try {
         const user = await User.findByIdAndRemove(req.params.id)
@@ -42,6 +42,8 @@ router.get('/users/home', auth, async (req, res) => {
     res.send(req.user)
 })
 
-// TODO : Update a user, necessary to create the authentification
+
+// TODO : Set /admin route for all admin functions and routes
+// TODO : Update a user
 
 module.exports = router
