@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const User = require('./user')
 
 const orderSchema = new mongoose.Schema({
-    user: {
+    user: {     // Define relationship between user-order documents
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    isPaid: {
+    completed: {
         type: Boolean,
         default: false
     },
@@ -37,7 +37,7 @@ orderSchema.pre("save", async function (next) {
         order.totalPrice += item.price * item.quantity
     })
 
-    const today = new Date();
+    const today = new Date()
     let currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
     let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 
