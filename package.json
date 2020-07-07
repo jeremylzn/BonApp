@@ -4,7 +4,8 @@
     "description": "Meal Ordering and Delivery Platform",
     "main": "index.js",
     "scripts": {
-        "dev": "(cd 02_UIL/client && npm run build) & nodemon ./01_BLL/src/index.js"
+        "dev": "(cd 02_UIL/client && npm run build) & nodemon ./01_BLL/src/index.js",
+        "ngDev": "(cd 02_UIL/client && npm run start)"
     },
     "repository": {
         "type": "git",
