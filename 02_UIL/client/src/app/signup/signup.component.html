@@ -1,0 +1,80 @@
+<div class="container">
+
+    <form class="well form-horizontal shadow" id="contact_form" ngNativeValidate>
+        <fieldset>
+
+            <!-- Form Title -->
+            <legend>
+                <h2 class="text-center form-title"><b>SIGN UP TO BONAPP</b></h2>
+            </legend><br>
+
+            <!-- Full Name input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Full Name</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="first_name" placeholder="Full Name" class="form-control" type="text" required [(ngModel)]="user.name">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Password input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="	glyphicon glyphicon-lock"></i></span>
+                        <input (keyup)="checkPassword(checkpassword.value)" name="user_password" placeholder="Password" class="form-control" type="password" required [(ngModel)]="user.password">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirm Password input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Confirm Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input (keyup)="checkPassword(checkpassword.value)" name="confirm_password" placeholder="Confirm Password" #checkpassword class="form-control" type="password" required>
+                    </div>
+                    <label *ngIf="checkPassword(checkpassword.value)" class="text-danger">
+                        Passwords do not match
+                    </label>
+                </div>
+            </div>
+
+            <!-- Email input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">E-Mail</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input (keyup)="checkEmail($event.target.value)" name="email" placeholder="E-Mail Address" class="form-control" type="text" required [(ngModel)]="user.email">
+                    </div>
+                    <label *ngIf="!checkemail" class="text-danger">The value is not a valid email address</label>
+                </div>
+            </div>
+
+            <!-- Success message -->
+            <div *ngIf="registration" class="alert alert-success text-center" role="alert">Sign up successfully <i class="glyphicon glyphicon-thumbs-up"></i></div>
+
+            <!-- Failed message
+            <div *ngIf="registration==false" class="alert alert-danger text-center" role="alert">Sign up successfully <i class="glyphicon glyphicon-thumbs-up"></i></div> -->
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4 text-center"><br>
+                    <button (click)="onSubmit(user); checkpassword.value=''" type="submit" class="btn btn-success">SUBMIT <span class="glyphicon glyphicon-send"></span></button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+<!-- /.container -->
