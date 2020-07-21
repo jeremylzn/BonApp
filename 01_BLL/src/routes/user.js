@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const User = require('../../../00_DAL/models/user')
 
 // Sign up new user
-router.post('/users', async(req, res) => {
+router.post('/users', async (req, res) => {
     const user = new User(req.body)
 
     try {
@@ -17,9 +17,35 @@ router.post('/users', async(req, res) => {
     }
 })
 
-// Get all users --- ADMIN ONLY 
-router.get('/users', async(req, res) => {
+// Log in existing user
+router.post('/users/login', async (req, res) => {
+
     try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()
+
+        res.send({ user, token })
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
+
+// Log out a user (delete token)
+router.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.token = ''
+        await req.user.save()
+
+        res.status(200).send({ message: `${req.user.name} has logged out` })
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// ADMIN - Get all users
+router.get('/admin/users', async (req, res) => {
+    try {
+        // TODO: allow for admin only
         const users = await User.find({})
         res.send(users)
     } catch (err) {
@@ -27,11 +53,16 @@ router.get('/users', async(req, res) => {
     }
 })
 
-// Delete a user by id --- ADMIN ONLY
-router.delete('/users/:id', async(req, res) => {
+// ADMIN - Delete a user by id
+router.delete('/admin/users/:id', async (req, res) => {
     try {
+        // TODO: allow for admin only
         const user = await User.findByIdAndRemove(req.params.id)
-        res.status(201).send(user)
+
+        if (user)
+            res.status(200).send(user)
+        else
+            res.status(404).send({ 'error': 'User not found!' })
     } catch (err) {
         res.status(500).send(err)
     }

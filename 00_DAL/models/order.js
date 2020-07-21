@@ -2,9 +2,10 @@ const mongoose = require('mongoose')
 const User = require('./user')
 
 const orderSchema = new mongoose.Schema({
-    user: {     // Define relationship between user-order documents
+    customerID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     items: {    // Add validation to quantity and price so it can't be negative (add Item sub-schema?)
         type: Array,
