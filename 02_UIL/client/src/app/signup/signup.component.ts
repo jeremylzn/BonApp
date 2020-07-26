@@ -36,15 +36,16 @@ export class SignupComponent implements OnInit {
   public checkEmail(email:string) {
     const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (validEmailRegEx.test(email)) {
-        console.log(email);
+        console.log("true " + email);
         this.checkemail = true;
     }else {
-      this.checkemail = false;
+      console.log("false " + email);
+      this.checkemail = null;
     }
 }
 
   public onSubmit(user:User){
     this.UserService.SignUp(user)
-    .subscribe(res=>{this.registration=true; this.resetForm();}, err=>console.log("Failed.."))
+    .subscribe(res=>{this.registration=true; this.resetForm();}, err=>{this.registration=false; console.log("Failed..");})
   }
 }
