@@ -24,4 +24,17 @@ export class UserService {
     }
     return this.httpRequest.post(this.rootUrl + 'users', userInfos);
   }
+
+  public Login(user: User) {
+    const userInfos: User = {
+      email: user.email,
+      password: user.password
+    }
+    return this.httpRequest.post(this.rootUrl + 'users/login', userInfos);
+  }
+
+  public GetHome() {
+    return this.httpRequest.get(this.rootUrl + 'users/home');
+  }
+
 }

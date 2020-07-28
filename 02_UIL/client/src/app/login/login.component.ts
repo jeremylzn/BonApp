@@ -3,34 +3,21 @@ import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/models/user.model';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class SignupComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   public user:User;
-  public registration:boolean;
+  public login:boolean;
   public checkemail:boolean=true;
-
+  
   constructor(private UserService : UserService) {
     this.user=this.UserService.user
-  }
+   }
 
   ngOnInit(): void {
-    this.resetForm();
-  }
-
-  public resetForm(){
-    if(this.user!=null){
-      this.user.name='',
-      this.user.email='',
-      this.user.password=''
-    }
-  }
-
-  public checkPassword(password:string){
-    return password===this.user.password ? null:true;
   }
 
   public checkEmail(email:string) {
@@ -42,8 +29,13 @@ export class SignupComponent implements OnInit {
     }
 }
 
-  public onSubmit(user:User){
-    this.UserService.SignUp(user)
-    .subscribe(res=>{this.registration=true; this.resetForm();}, err=>{this.registration=false; console.log(err);})
-  }
+public onSubmit(user:User){
+  this.UserService.Login(user)
+  .subscribe(res=>{
+    this.login=true;
+    this.user.name=res["user"].name;
+    this.user.email=res["user"].email;
+  }, err=>{this.login=false; console.log(err);})
+}
+
 }
