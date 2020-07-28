@@ -32,17 +32,22 @@ export class SignupComponent implements OnInit {
     return password === this.signupForm.get('password').value ? null : true;
   }
 
-  public checkEmail(email:string) {
-    const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (validEmailRegEx.test(email)) {
-        this.checkemail = true;
-    }else {
-      this.checkemail = null;
-    }
-}
+  public onSubmit() {
+    const user: User = {
+      name: this.signupForm.get('name').value,
+      password: this.signupForm.get('password').value,
+      email: this.signupForm.get('email').value,
+    };
 
-  public onSubmit(user:User){
-    this.UserService.SignUp(user)
-    .subscribe(res=>{this.registration=true; this.resetForm();}, err=>{this.registration=false; console.log(err);})
+    this.UserService.SignUp(user).subscribe(
+      (res) => {
+        this.registrationSuccess = true;
+        this.signupForm.reset();
+      },
+      (err) => {
+        this.registrationSuccess = false;
+        console.log('Failed..');
+      }
+    );
   }
 }
