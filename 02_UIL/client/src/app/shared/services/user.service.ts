@@ -17,6 +17,7 @@ export class UserService {
   constructor(private httpRequest: HttpClient) { }
 
   public SignUp(user: User) {
+    
     const userInfos: User = {
       name: user.name,
       email: user.email,

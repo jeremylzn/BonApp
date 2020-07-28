@@ -1,4 +1,4 @@
-<form class="card  text-center mb-3 form-group bg-light shadow">
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="card  text-center mb-3 form-group bg-light shadow">
     <!-- Form Title -->
     <div class="card-header ">
         <h1 class="font-weight-light text-uppercase"><b>SIGN UP TO BONAPP</b></h1>
@@ -9,7 +9,7 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user-circle fa-2x"></i></span><br>
-                <input name="full_name" type="text" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Full Name" required [(ngModel)]="user.name">
+                <input formControlName="name" type="text" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Full Name"  >
             </div>
         </div>
 
@@ -17,7 +17,7 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key fa-2x"></i></span><br>
-                <input name="user_password" type="password" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Password" (keyup)="checkPassword(checkpassword.value)" required [(ngModel)]="user.password">
+                <input formControlName="password" type="password" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Password">
             </div>
         </div>
 
@@ -25,9 +25,9 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key fa-2x"></i></span><br>
-                <input name="confirm_password" #checkpassword type="password" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Confirm Your Password" (keyup)="checkPassword(checkpassword.value)" required>
+                <input formControlName="confirmPassword" type="password" #checkpassword  class=" ml-4 form-control rounded-pill form-control-md" placeholder="Confirm Your Password" (keyup)="checkPassword(checkpassword.value)" >
             </div>
-            <label *ngIf="checkPassword(checkpassword.value)" class="text-danger">
+            <label *ngIf="checkPassword(checkpassword.value) && signupForm.get('confirmPassword').touched" class="text-danger">
                 Passwords do not match
             </label>
         </div>
@@ -36,19 +36,19 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope fa-2x"></i></span><br>
-                <input name="email" type="email" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Email Address" (change)="checkEmail($event.target.value)" required [(ngModel)]="user.email">
+                <input formControlName="email" class=" ml-4 form-control rounded-pill form-control-md" placeholder="Email Address" >
             </div>
-            <label *ngIf="!checkemail" class="text-danger">The value is not a valid email address</label>
+            <label *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="text-danger">The value is not a valid email address</label>
         </div>
 
         <!-- Success message -->
-        <div *ngIf="registration" class="alert alert-success text-center" role="alert">Sign up successfully</div>
+        <div *ngIf="registrationSuccess" class="alert alert-success text-center" role="alert">Sign up successfully</div>
 
         <!-- Failed message -->
-        <div *ngIf="registration===false" class="alert alert-danger text-center" role="alert">Sign up failed, please verify yours fields</div>
+        <div *ngIf="registrationSuccess === false" class="alert alert-danger text-center" role="alert">Sign up failed, please verify yours fields</div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase" (click)="onSubmit(user); checkpassword.value=''">Sign up</button>
+        <button [disabled]="!signupForm.valid" type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Sign up</button>
         <p class="mt-3 font-weight-normal">Do you have an account? <a routerLink="/login"><strong>Login Now</strong></a></p>
     </div>
 </form>
