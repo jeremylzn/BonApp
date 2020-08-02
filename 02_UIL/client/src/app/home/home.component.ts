@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/models/user.model';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { User } from '../shared/models/auth/user.model';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +10,19 @@ import { User } from '../shared/models/user.model';
 export class HomeComponent implements OnInit {
 
   public user:User;
-  constructor(private UserService : UserService) { 
-    this.user=this.UserService.user
+  public name:String;
+  constructor(private AuthService : AuthService) { 
+    this.user=this.AuthService.user
   }
 
   ngOnInit(): void {
     this.Home();
+
   }
 
   public Home(){
-    this.UserService.GetHome()
-    .subscribe(res=>{console.log(res);}, err=>{console.log(err);})
+    this.AuthService.GetHome()
+    .subscribe(res=>this.name=res["name"], err=>{console.log(err);})
   }
 
 }

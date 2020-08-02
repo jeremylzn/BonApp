@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/models/user.model';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { User } from '../shared/models/auth/user.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -9,33 +12,35 @@ import { User } from '../shared/models/user.model';
 })
 export class LoginComponent implements OnInit {
 
-  public user:User;
-  public login:boolean;
-  public checkemail:boolean=true;
-  
-  constructor(private UserService : UserService) {
-    this.user=this.UserService.user
-   }
+  public user: User;
+  public token:String;
+  public signupForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private AuthService: AuthService, private router: Router) {
+    this.user = this.AuthService.user;
+    this.token=this.AuthService.getToken;
   }
 
-  public checkEmail(email:string) {
-    const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (validEmailRegEx.test(email)) {
-        this.checkemail = true;
-    }else {
-      this.checkemail = null;
-    }
-}
+  ngOnInit(): void {
+    this.signupForm = new FormGroup({
+      password: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email])
+    });
+  }
 
-public onSubmit(user:User){
-  this.UserService.Login(user)
-  .subscribe(res=>{
-    this.login=true;
-    this.user.name=res["user"].name;
-    this.user.email=res["user"].email;
-  }, err=>{this.login=false; console.log(err);})
-}
+  public onSubmit() {
+    this.AuthService.user = {
+      password: this.signupForm.get('password').value,
+      email: this.signupForm.get('email').value,
+    };
+    this.AuthService.Login(this.AuthService.user)
+      .subscribe(res => {
+        console.log(res);
+        this.AuthService.getToken=res["token"];
+        this.signupForm.reset();
+        this.router.navigateByUrl('/users/home');
+      }, err => { console.log(err); })
+  }
+
 
 }
