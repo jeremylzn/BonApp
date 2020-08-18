@@ -9,22 +9,19 @@ import { User } from '../shared/models/auth/user.model';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-
 export class SignupComponent implements OnInit {
   public user: User;
   public signupForm: FormGroup;
   public registrationSuccess: boolean;
 
-  constructor(private AuthService: AuthService) {
-    this.user = this.AuthService.user;
-  }
+  constructor(private AuthService: AuthService) {}
 
   ngOnInit() {
     this.signupForm = new FormGroup({
       name: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email])
+      email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -33,13 +30,13 @@ export class SignupComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.AuthService.user = {
+    const userInfo = {
       name: this.signupForm.get('name').value,
-      password: this.signupForm.get('password').value,
       email: this.signupForm.get('email').value,
+      password: this.signupForm.get('password').value,
     };
 
-    this.AuthService.SignUp(this.AuthService.user).subscribe(
+    this.AuthService.SignUp(userInfo).subscribe(
       (res) => {
         this.registrationSuccess = true;
         this.signupForm.reset();

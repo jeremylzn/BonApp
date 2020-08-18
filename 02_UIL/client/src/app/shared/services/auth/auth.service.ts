@@ -1,48 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+
 import { User } from '../../models/auth/user.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  user = new Subject<User>();
 
-  public user: User = {
-    name: '',
-    email: '',
-    password: ''
-  }
-  readonly rootUrl = 'http://localhost:3000/'
+  readonly rootUrl = 'http://localhost:3000/';
 
-  public getToken:String;
+  public token: String;
 
-  constructor(private httpRequest: HttpClient) { }
+  constructor(private httpRequest: HttpClient) {}
 
-  public SignUp(user: User) {
-
-    const userInfos: User = {
-      name: user.name,
-      email: user.email,
-      password: user.password
-    }
+  public SignUp(userInfos: { name: string; email: string; password: string }) {
     return this.httpRequest.post(this.rootUrl + 'users', userInfos);
   }
 
-  public Login(user: User) {
-    const userInfos: User = {
-      email: user.email,
-      password: user.password
-    }
-    return this.httpRequest.post(this.rootUrl + 'users/login', userInfos);
+  public Login(userCredentials: { email: string; password: string }) {
+    return this.httpRequest
+      .post(this.rootUrl + 'users/login', userCredentials)
+      .pipe(
+        tap((res) => {
+          this.token = res['token'];
+        })
+      );
   }
 
   public GetHome() {
-    console.log(this.getToken);
-    var header = {
-      headers: new HttpHeaders()
-        .set('Authorization',  `Bearer ${this.getToken}`)
-    }
-    return this.httpRequest.get(this.rootUrl + 'users/home/', header);
+    console.log(this.token);
+
+    const header = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
+    };
+
+    return this.httpRequest.get(this.rootUrl + 'users/home/' + header);
   }
 
 }

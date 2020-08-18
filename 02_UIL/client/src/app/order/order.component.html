@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-8">
+    <form id="orderForm" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="item">Item Name</label>
+        <input
+          type="text"
+          id="item"
+          class="form-control"
+          formControlName="item"
+        />
+      </div>
+      <div class="form-group">
+        <label for="item">Amount</label>
+        <input
+          type="number"
+          id="amount"
+          class="form-control"
+          formControlName="amount"
+        />
+      </div>
+
+      <!-- This is will eventually be a menu item (clickable) -->
+      <div class="card">
+        <p class="card-header">Burger</p>
+        <p class="card-body">Great burger!</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Shopping Cart -->
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <button
+          type="submit"
+          form="orderForm"
+          class="btn btn-primary rounded-0 btn-block"
+        >
+          Submit
+        </button>
+        <hr />
+        <p>Cart text!</p>
+      </div>
+    </div>
+  </div>
+</div>
