@@ -14,10 +14,10 @@
 
     <p *ngIf="shoppingCart.length == 0">Your cart is empty</p>
 
-    <ul *ngFor="let item of shoppingCart" class="list-group">
+    <ul *ngFor="let item of shoppingCart; let i = index" class="list-group">
       <div class="list-group-item">
         <a>{{ item.name }} - ₪{{ item.price }}</a>
-        <small class="pull-right">Remove</small>
+        <small class="pull-right remove-btn" (click)="onRemoveItem(i)">Remove</small>
       </div>
     </ul>
   </div>

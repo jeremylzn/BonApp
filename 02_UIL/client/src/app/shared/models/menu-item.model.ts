@@ -1,5 +1,6 @@
 export interface MenuItem {
   name: string;
-  description?: string;
   price: number;
+  description?: string;
+  imagePath?: string;
 }
