@@ -38,7 +38,7 @@ export class AuthService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
     };
 
-    return this.httpRequest.get(this.rootUrl + 'users/home/' + header);
+    return this.httpRequest.get(this.rootUrl + 'users/home/', header);
   }
 
 }

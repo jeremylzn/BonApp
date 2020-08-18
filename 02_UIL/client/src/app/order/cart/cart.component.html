@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+    <button
+      type="submit"
+      form="orderForm"
+      class="btn btn-primary rounded-0 btn-block"
+    >
+      Submit
+    </button>
+    <p *ngIf="shoppingCart.length > 0" class="text-center">
+      Total price: ₪{{ totalPrice }}
+    </p>
+    <hr />
+
+    <p *ngIf="shoppingCart.length == 0">Your cart is empty</p>
+
+    <ul *ngFor="let item of shoppingCart" class="list-group">
+      <div class="list-group-item">
+        <a>{{ item.name }} - ₪{{ item.price }}</a>
+        <small class="pull-right">Remove</small>
+      </div>
+    </ul>
+  </div>
+</div>
