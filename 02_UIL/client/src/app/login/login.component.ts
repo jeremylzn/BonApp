@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
         // this.AuthService.getToken=res["token"];
         this.signupForm.reset();
-        this.router.navigateByUrl('/users/home');
+        this.router.navigateByUrl('/order');
       },
       (err) => {
         console.log(err);

@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   public Home() {
     this.AuthService.GetHome().subscribe(
-      (res) => (this.name = res['name']),
+      (res) => this.name = res['name'],
       (err) => {
         console.log(err);
       }

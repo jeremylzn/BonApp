@@ -34,4 +34,8 @@ export class CartComponent implements OnInit {
   onRemoveItem(index: number) {
     this.orderService.removeItemFromCart(index);
   }
+
+  onSubmitOrder() {
+    this.orderService.submitOrder();
+  }
 }

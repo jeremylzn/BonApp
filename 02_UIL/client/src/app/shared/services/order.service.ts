@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 import { MenuItem } from '../models/menu-item.model';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -50,12 +52,14 @@ export class OrderService {
       imagePath:
         'https://cater-choice.com/media/catalog/product/cache/1/image/1500x/9df78eab33525d08d6e5fb8d27136e95/c/l/classiccokeglassbottle.png',
     },
-  ];
+  ]; // TODO : export this to JSON file
 
+  readonly rootUrl = 'http://localhost:3000/';
   cartChanged = new Subject<MenuItem[]>();
+
   private shoppingCart: MenuItem[] = [];
 
-  constructor() {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getMenu() {
     return this.menu;
@@ -66,14 +70,36 @@ export class OrderService {
   }
 
   addItemToCart(item: MenuItem) {
-    console.log(item.name, item.price);
-
-    this.shoppingCart.push(item);
+    this.shoppingCart.push({ ...item, quantity: 1 });
     this.cartChanged.next(this.shoppingCart);
+    // TODO: add findDuplicateItems to automatically increase quantity of selected item
+
+    console.log(this.shoppingCart);
   }
 
   removeItemFromCart(index: number) {
     this.shoppingCart.splice(index, 1);
     this.cartChanged.next(this.shoppingCart);
+
+    console.log(this.shoppingCart);
+  }
+
+  //TODO: add order as guest feature, add auth interceptor to save token as header
+  submitOrder() {
+    const tokenHeader = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this.authService.token}`
+      ),
+    };
+
+    this.http
+      .post(this.rootUrl + 'orders', { items: this.shoppingCart }, tokenHeader)
+      .subscribe((res) => {
+        console.log(res);
+
+        this.shoppingCart = [];
+        this.cartChanged.next(this.shoppingCart);
+      });
   }
 }
