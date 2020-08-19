@@ -2,3 +2,7 @@
   cursor: pointer;
   color: blue;
 }
+
+.alert-success {
+  margin-top: 3%;
+}

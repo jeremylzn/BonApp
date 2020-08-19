@@ -14,15 +14,15 @@ export class HomeComponent implements OnInit {
   constructor(private AuthService: AuthService) {}
 
   ngOnInit(): void {
-    this.Home();
+    // this.Home();
   }
 
-  public Home() {
-    this.AuthService.GetHome().subscribe(
-      (res) => this.name = res['name'],
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  // public Home() {
+  //   this.AuthService.GetHome().subscribe(
+  //     (res) => this.name = res['name'],
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 }

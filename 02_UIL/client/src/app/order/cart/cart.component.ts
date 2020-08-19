@@ -11,6 +11,7 @@ import { MenuItem } from '../../shared/models/menu-item.model';
 export class CartComponent implements OnInit {
   shoppingCart: MenuItem[] = [];
   totalPrice: number = 0;
+  orderCompleted: boolean = false;
 
   constructor(private orderService: OrderService) {}
 
@@ -36,6 +37,9 @@ export class CartComponent implements OnInit {
   }
 
   onSubmitOrder() {
-    this.orderService.submitOrder();
+    this.orderService.submitOrder().subscribe((res) => {
+      this.orderCompleted = true;
+      setTimeout(() => (this.orderCompleted = false), 3000);
+    });
   }
 }

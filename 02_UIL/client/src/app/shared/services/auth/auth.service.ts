@@ -52,15 +52,15 @@ export class AuthService {
     this.user.next(null);
   }
 
-  public GetHome() {
-    //console.log(this.token);
+  // public GetHome() {
+  //   //console.log(this.token);
 
-    const header = {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
-    };
+  //   const header = {
+  //     headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
+  //   };
 
-    return this.httpRequest.get(this.rootUrl + 'users/home/', header);
-  }
+  //   return this.httpRequest.get(this.rootUrl + 'users/home/', header);
+  // }
 
   private handleAuth(email: string, userID: string, token: string, name) {
     const user = new User(email, userID, token, false, name);

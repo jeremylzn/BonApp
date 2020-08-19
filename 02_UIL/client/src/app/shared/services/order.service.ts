@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, pipe } from 'rxjs';
 
 import { MenuItem } from '../models/menu-item.model';
 import { AuthService } from './auth/auth.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -93,13 +94,15 @@ export class OrderService {
       ),
     };
 
-    this.http
+    return this.http
       .post(this.rootUrl + 'orders', { items: this.shoppingCart }, tokenHeader)
-      .subscribe((res) => {
-        console.log(res);
+      .pipe(
+        tap((res) => {
+          console.log(res);
 
-        this.shoppingCart = [];
-        this.cartChanged.next(this.shoppingCart);
-      });
+          this.shoppingCart = [];
+          this.cartChanged.next(this.shoppingCart);
+        })
+      );
   }
 }
