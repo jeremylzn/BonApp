@@ -23,6 +23,8 @@
   </div>
 </div>
 
+<!-- UX: Display loading spinner for 500ms before success alert ------- keep? -->
+<app-loading-spinner *ngIf="isLoading" class="d-flex justify-content-center"></app-loading-spinner>
 <div class="alert alert-success" role="alert" *ngIf="orderCompleted">
   Order successfully placed!
 </div>

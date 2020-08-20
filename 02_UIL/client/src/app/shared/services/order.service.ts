@@ -53,7 +53,7 @@ export class OrderService {
       imagePath:
         'https://cater-choice.com/media/catalog/product/cache/1/image/1500x/9df78eab33525d08d6e5fb8d27136e95/c/l/classiccokeglassbottle.png',
     },
-  ]; // TODO : export this to JSON file
+  ]; // TODO : export this to an external file
 
   readonly rootUrl = 'http://localhost:3000/';
   cartChanged = new Subject<MenuItem[]>();
@@ -85,6 +85,11 @@ export class OrderService {
     console.log(this.shoppingCart);
   }
 
+  clearShoppingCart() {
+    this.shoppingCart = [];
+    this.cartChanged.next(this.shoppingCart);
+  }
+
   //TODO: add order as guest feature, add auth interceptor to save token as header
   submitOrder() {
     const tokenHeader = {
@@ -100,8 +105,8 @@ export class OrderService {
         tap((res) => {
           console.log(res);
 
-          this.shoppingCart = [];
-          this.cartChanged.next(this.shoppingCart);
+          // UX: 500ms delay -------- keep?
+          setTimeout(() => this.clearShoppingCart(), 500);
         })
       );
   }

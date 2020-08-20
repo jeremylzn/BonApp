@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { MenuItemComponent } from './order/menu-item/menu-item.component';
 import { CartComponent } from './order/cart/cart.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CartComponent } from './order/cart/cart.component';
     HomeComponent,
     OrderComponent,
     MenuItemComponent,
-    CartComponent
+    CartComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

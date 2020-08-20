@@ -11,7 +11,9 @@ import { MenuItem } from '../../shared/models/menu-item.model';
 export class CartComponent implements OnInit {
   shoppingCart: MenuItem[] = [];
   totalPrice: number = 0;
+
   orderCompleted: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private orderService: OrderService) {}
 
@@ -38,8 +40,13 @@ export class CartComponent implements OnInit {
 
   onSubmitOrder() {
     this.orderService.submitOrder().subscribe((res) => {
-      this.orderCompleted = true;
-      setTimeout(() => (this.orderCompleted = false), 3000);
+      // UX: Display loading spinner for 500ms and then success message 3000ms ------- keep?
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.orderCompleted = true;
+        setTimeout(() => (this.orderCompleted = false), 3000);
+      }, 500);
     });
   }
 }

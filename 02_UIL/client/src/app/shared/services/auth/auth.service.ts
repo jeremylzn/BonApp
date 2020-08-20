@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
 import { User } from '../../models/auth/user.model';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthResponseData } from '../../models/auth/login-response-data.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   readonly rootUrl = 'http://localhost:3000/';
 
@@ -27,6 +27,7 @@ export class AuthService {
             res.user.email,
             res.user._id,
             res.user.token,
+            false,
             res.user.name
           );
         })
@@ -42,6 +43,7 @@ export class AuthService {
             res.user.email,
             res.user._id,
             res.token,
+            res.user.isAdmin,
             res.user.name
           );
         })
@@ -50,6 +52,7 @@ export class AuthService {
 
   public logout() {
     this.user.next(null);
+    localStorage.removeItem('userData');
   }
 
   // public GetHome() {
@@ -62,10 +65,44 @@ export class AuthService {
   //   return this.httpRequest.get(this.rootUrl + 'users/home/', header);
   // }
 
-  private handleAuth(email: string, userID: string, token: string, name) {
-    const user = new User(email, userID, token, false, name);
+  private handleAuth(
+    email: string,
+    userID: string,
+    token: string,
+    isAdmin: boolean,
+    name: string
+  ) {
+    const user = new User(email, userID, token, isAdmin, name);
     this.token = token;
 
     this.user.next(user);
+
+    // Save logged user info in local storage for auto-login
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      isAdmin: boolean;
+      name: string;
+      token: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData.token,
+      userData.isAdmin,
+      userData.name
+    );
+    this.token = loadedUser.token;
+
+    this.user.next(loadedUser);
   }
 }

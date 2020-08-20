@@ -4,7 +4,6 @@ export class User {
     public id: string,
     public token: string,
     public isAdmin: boolean,
-    public name?: string,
-    private password?: string
+    public name?: string
   ) {}
 }

@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/signup', pathMatch: 'full' },
+  { path: '', redirectTo: '/order', pathMatch: 'full' },
   {
     path: 'signup',
     component: SignupComponent,

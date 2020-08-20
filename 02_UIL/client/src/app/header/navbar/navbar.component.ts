@@ -17,9 +17,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user) => {
-      this.isAuthenticated = user ? true : false;
-      if (this.isAuthenticated) this.userName = user.name;
-      else this.userName = null;
+      // The 500ms delay is for UX purposes only --------- keep?
+      setTimeout(() => {
+        this.isAuthenticated = user ? true : false;
+
+        if (this.isAuthenticated) this.userName = user.name;
+        else this.userName = null;
+      }, 500);
     });
   }
 

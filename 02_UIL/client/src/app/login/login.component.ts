@@ -12,11 +12,10 @@ import { User } from '../shared/models/auth/user.model';
 })
 export class LoginComponent implements OnInit {
   public user: User;
-  public token: String;
   public signupForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(private AuthService: AuthService, private router: Router) {
-    this.token = this.AuthService.token;
   }
 
   ngOnInit(): void {
@@ -34,10 +33,11 @@ export class LoginComponent implements OnInit {
     
     this.AuthService.Login(userCredentials).subscribe(
       (res) => {
-        console.log(res);
-        // this.AuthService.getToken=res["token"];
-        this.signupForm.reset();
-        this.router.navigateByUrl('/order');
+        this.isLoading = true;
+        setTimeout(() => {
+          this.router.navigateByUrl('/order');
+        }, 500)
+        
       },
       (err) => {
         console.log(err);
