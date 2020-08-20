@@ -10,6 +10,10 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './header/navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { OrderComponent } from './order/order.component';
+import { MenuItemComponent } from './order/menu-item/menu-item.component';
+import { CartComponent } from './order/cart/cart.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { HomeComponent } from './home/home.component';
     HeaderComponent,
     NavbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    OrderComponent,
+    MenuItemComponent,
+    CartComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
