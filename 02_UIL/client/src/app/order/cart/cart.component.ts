@@ -39,14 +39,16 @@ export class CartComponent implements OnInit {
   }
 
   onSubmitOrder() {
-    this.orderService.submitOrder().subscribe((res) => {
-      // UX: Display loading spinner for 500ms and then success message 3000ms ------- keep?
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        this.orderCompleted = true;
-        setTimeout(() => (this.orderCompleted = false), 3000);
-      }, 500);
-    });
+    this.orderService.submitOrder().subscribe(
+      (res) => {
+        // UX: Display loading spinner for 500ms and then success message ------- keep?
+        this.isLoading = true;
+        setTimeout(() => {
+          this.isLoading = false;
+          this.orderCompleted = true;
+        }, 500);
+      },
+      (errResponse) => console.log(errResponse.error.error)
+    );
   }
 }
