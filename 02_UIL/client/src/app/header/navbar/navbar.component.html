@@ -14,15 +14,19 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+          <a class="nav-item nav-link" routerLink="/home">Home</a>
+        </li>
+        <li routerLinkActive="active">
+          <a class="nav-item nav-link" routerLink="/order">Order Now</a>
+        </li>
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a class="nav-item nav-link" routerLink="/login">Login</a>
         </li>
         <li routerLinkActive="active" *ngIf="!isAuthenticated">
           <a class="nav-item nav-link" routerLink="/signup">Sign Up</a>
         </li>
-        <li routerLinkActive="active">
-          <a class="nav-item nav-link" routerLink="/order">Order Now</a>
-        </li>
+        
       </ul>
     </div>
   </div>

@@ -51,7 +51,7 @@ export class OrderService {
       description: 'Coca Cola',
       price: 12,
       imagePath:
-        'https://cater-choice.com/media/catalog/product/cache/1/image/1500x/9df78eab33525d08d6e5fb8d27136e95/c/l/classiccokeglassbottle.png',
+        'https://p1.hiclipart.com/preview/942/770/358/10-coca-cola-items-coca-cola-glass-bottle-illustration.jpg',
     },
   ]; // TODO : export this to an external file
 

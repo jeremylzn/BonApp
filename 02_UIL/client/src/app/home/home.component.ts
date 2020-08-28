@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../shared/services/auth/auth.service';
 import { User } from '../shared/models/auth/user.model';
 
@@ -8,13 +10,20 @@ import { User } from '../shared/models/auth/user.model';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public user: User;
-  public name: String;
+  public userSubscription = new Subscription();
+  public userName: String;
 
-  constructor(private AuthService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // this.Home();
+    this.getUserName();
+  }
+
+  public getUserName() {
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      if (user) this.userName = user.name;
+      else this.userName = 'Guest';
+    });
   }
 
   // public Home() {
