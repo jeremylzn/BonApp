@@ -6,7 +6,11 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/order', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
   {
     path: 'signup',
     component: SignupComponent,
@@ -16,10 +20,6 @@ const routes: Routes = [
     component: LoginComponent,
   },
   { path: 'order', component: OrderComponent },
-  {
-    path: 'users/home',
-    component: HomeComponent,
-  },
 ];
 
 @NgModule({
