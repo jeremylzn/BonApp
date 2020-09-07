@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   userSubscription = new Subscription();
   userName: string;
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -20,9 +21,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       // The 500ms delay is for UX purposes only --------- keep?
       setTimeout(() => {
         this.isAuthenticated = user ? true : false;
-
-        if (this.isAuthenticated) this.userName = user.name;
-        else this.userName = null;
+        this.isAdmin=null;
+        if (this.isAuthenticated){
+          this.userName = user.name;
+          if (user.isAdmin) this.isAdmin=true;
+        } else this.userName = null;
       }, 500);
     });
   }
