@@ -2,9 +2,11 @@ const express = require('express')
 const router = new express.Router()
 const Order = require('../../../00_DAL/models/order')
 const auth = require('../middleware/auth')
+const authAsAdmin = require('../middleware/authAsAdmin')
+
 
 // Create a new order
-router.post('/orders', auth, async (req, res) => {
+router.post('/orders', auth, async(req, res) => {
     const order = new Order({
         ...req.body,
         customerID: req.user._id
@@ -20,9 +22,8 @@ router.post('/orders', auth, async (req, res) => {
 })
 
 // ADMIN - View all orders  
-router.get('/admin/orders', auth, async (req, res) => {
+router.get('/admin/orders', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only (merge with below function)
         const orders = await Order.find({})
 
         res.send(orders)
@@ -32,7 +33,7 @@ router.get('/admin/orders', auth, async (req, res) => {
 })
 
 // View the logged in user's orders
-router.get('/orders', auth, async (req, res) => {
+router.get('/orders', auth, async(req, res) => {
     try {
         const orders = await Order.find({ customerID: req.user._id })
 

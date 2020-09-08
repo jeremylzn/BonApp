@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
@@ -12,23 +14,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   userSubscription = new Subscription();
   userName: string;
+  isAdmin: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user) => {
       // The 500ms delay is for UX purposes only --------- keep?
       setTimeout(() => {
         this.isAuthenticated = user ? true : false;
-
-        if (this.isAuthenticated) this.userName = user.name;
-        else this.userName = null;
+        this.isAdmin=null;
+        if (this.isAuthenticated){
+          this.userName = user.name;
+          if (user.isAdmin) this.isAdmin=true;
+        } else this.userName = null;
       }, 500);
     });
   }
 
   onLogout() {
-    this.authService.logout();
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
   }
 
   ngOnDestroy() {

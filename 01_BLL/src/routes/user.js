@@ -1,10 +1,11 @@
 const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const authAsAdmin = require('../middleware/authAsAdmin')
 const User = require('../../../00_DAL/models/user')
 
 // Sign up new user
-router.post('/users', async (req, res) => {
+router.post('/users', async(req, res) => {
     const user = new User(req.body)
 
     try {
@@ -18,7 +19,7 @@ router.post('/users', async (req, res) => {
 })
 
 // Log in existing user
-router.post('/users/login', async (req, res) => {
+router.post('/users/login', async(req, res) => {
 
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
@@ -31,7 +32,7 @@ router.post('/users/login', async (req, res) => {
 })
 
 // Log out a user (delete token)
-router.post('/users/logout', auth, async (req, res) => {
+router.post('/users/logout', auth, async(req, res) => {
     try {
         req.user.token = ''
         await req.user.save()
@@ -43,9 +44,8 @@ router.post('/users/logout', auth, async (req, res) => {
 })
 
 // ADMIN - Get all users
-router.get('/admin/users', async (req, res) => {
+router.get('/admin/users', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only
         const users = await User.find({})
         res.send(users)
     } catch (err) {
@@ -53,10 +53,22 @@ router.get('/admin/users', async (req, res) => {
     }
 })
 
-// ADMIN - Delete a user by id
-router.delete('/admin/users/:id', async (req, res) => {
+// ADMIN - Get specific user by id
+router.get('/admin/user/:id', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only
+        const user = await User.findById(req.params.id)
+        if (user)
+            res.status(200).send(user)
+        else
+            res.status(404).send({ 'error': 'User not found!' })
+    } catch (err) {
+        res.status(500).send(err)
+    }
+})
+
+// ADMIN - Delete a user by id
+router.delete('/admin/users/:id', authAsAdmin, async(req, res) => {
+    try {
         const user = await User.findByIdAndRemove(req.params.id)
 
         if (user)
@@ -69,7 +81,7 @@ router.delete('/admin/users/:id', async (req, res) => {
 })
 
 // Get currently logged in user
-router.get('/users/home', auth, async (req, res) => {
+router.get('/users/home', auth, async(req, res) => {
     res.send(req.user)
 })
 

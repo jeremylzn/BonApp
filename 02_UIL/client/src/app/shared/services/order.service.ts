@@ -10,57 +10,15 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OrderService {
-  menu: MenuItem[] = [
-    {
-      name: 'Burger',
-      description: 'A Tasty Burger',
-      price: 50,
-      imagePath:
-        'https://www.eatnpark.com/UserFiles/Menu/BURGER_ClassicBurgerOLO.jpg',
-    },
-    {
-      name: 'Pizza',
-      description: 'Best Pizza In The World!',
-      price: 35,
-      imagePath:
-        'https://www.jocooks.com/wp-content/uploads/2012/03/margherita-pizza-11.jpg',
-    },
-    {
-      name: 'Toast',
-      description: 'Great Toast!',
-      price: 35,
-      imagePath:
-        'https://taste.co.za/wp-content/uploads/2015/11/The-ultimate-toasted-cheese.jpg',
-    },
-    {
-      name: 'Pasta',
-      description: 'Delicious Pasta!',
-      price: 40,
-      imagePath:
-        'https://www.foxvalleyfoodie.com/wp-content/uploads/2017/12/blue-cheese-mushroom-pasta-feature-500x500.jpg',
-    },
-    {
-      name: 'French Fries',
-      description: 'French fries!',
-      price: 14,
-      imagePath:
-        'https://static.toiimg.com/thumb/54659021.cms?imgsize=275086&width=800&height=800',
-    },
-    {
-      name: 'Coke',
-      description: 'Coca Cola',
-      price: 12,
-      imagePath:
-        'https://p1.hiclipart.com/preview/942/770/358/10-coca-cola-items-coca-cola-glass-bottle-illustration.jpg',
-    },
-  ]; // TODO : export this to an external file
 
   readonly rootUrl = 'http://localhost:3000/';
   cartChanged = new Subject<MenuItem[]>();
+  menu: MenuItem[]=[]
 
   private shoppingCart: MenuItem[] = [];
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   getMenu() {
     return this.menu;

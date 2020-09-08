@@ -1,18 +1,13 @@
-<form
-  [formGroup]="signupForm"
-  (ngSubmit)="onSubmit()"
-  class="card text-center mb-3 form-group bg-light shadow"
->
-  <!-- Form Title -->
-  <div class="card-header">
-    <h1 class="font-weight-light text-uppercase"><b>LOGIN TO BONAPP'</b></h1>
-  </div>
-  <div class="card-body">
-    <!-- Email input-->
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon"
-          ><i class="fa fa-envelope fa-2x"></i></span
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="card text-center mb-3 form-group bg-light shadow">
+    <!-- Form Title -->
+    <div class="card-header">
+        <h1 class="font-weight-light text-uppercase"><b>LOGIN TO BONAPP'</b></h1>
+    </div>
+    <div class="card-body">
+        <!-- Email input-->
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-2x"></i></span
         ><br />
         <input
           formControlName="email"
