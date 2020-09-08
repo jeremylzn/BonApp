@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../../00_DAL/models/user')
 
-const auth = async(req, res, next) => {
+const authAsAdmin = async(req, res, next) => {
 
     try {
         const token = req.header('Authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, 'thisisasecrettoken')
         const user = await User.findOne({ _id: decoded._id })
 
-        if (!user || user.token != token) {
+        if (!user || user.token != token || !user.isAdmin) {
             throw new Error()
         }
 
@@ -22,4 +22,4 @@ const auth = async(req, res, next) => {
 
 }
 
-module.exports = auth
+module.exports = authAsAdmin

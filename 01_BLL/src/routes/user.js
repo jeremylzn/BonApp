@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const authAsAdmin = require('../middleware/authAsAdmin')
 const User = require('../../../00_DAL/models/user')
 
 // Sign up new user
@@ -43,9 +44,8 @@ router.post('/users/logout', auth, async(req, res) => {
 })
 
 // ADMIN - Get all users
-router.get('/admin/users', auth, async(req, res) => {
+router.get('/admin/users', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only
         const users = await User.find({})
         res.send(users)
     } catch (err) {
@@ -54,9 +54,8 @@ router.get('/admin/users', auth, async(req, res) => {
 })
 
 // ADMIN - Get specific user by id
-router.get('/admin/user/:id', async(req, res) => {
+router.get('/admin/user/:id', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only
         const user = await User.findById(req.params.id)
         if (user)
             res.status(200).send(user)
@@ -68,9 +67,8 @@ router.get('/admin/user/:id', async(req, res) => {
 })
 
 // ADMIN - Delete a user by id
-router.delete('/admin/users/:id', async(req, res) => {
+router.delete('/admin/users/:id', authAsAdmin, async(req, res) => {
     try {
-        // TODO: allow for admin only
         const user = await User.findByIdAndRemove(req.params.id)
 
         if (user)
