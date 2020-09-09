@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 export class ActivitiesComponent implements OnInit {
 
   details:boolean;
-  allOrders: Order[]=[];
+  allOrdersNotCompleted: Order[]=[];
+  allOrdersCompleted: Order[]=[];
   isLoading: boolean = true;
 
 
@@ -32,11 +33,19 @@ export class ActivitiesComponent implements OnInit {
   }
 
   AllOrdersAndUsers(){
-    this.AdminService.getAllUsers().subscribe((res) => {
-    });
+    this.AdminService.getAllUsers().subscribe((res) => {});
 
-  this.AdminService.getAllOrders().subscribe((res) => {
-    this.allOrders=this.AdminService.allOrders;
+    this.AdminService.getAllOrders().subscribe((res) => {
+    this.allOrdersNotCompleted=this.AdminService.allOrdersNotCompleted;
+    this.allOrdersCompleted=this.AdminService.allOrdersCompleted;
+
     });
   }
+
+  orderCompleted(){
+    var completed = {completed:!this.AdminService.currentOrder.completed}
+    this.AdminService.UpdateOrder(completed).subscribe((res) => {});
+    this.AllOrdersAndUsers();
+  }
+
 }

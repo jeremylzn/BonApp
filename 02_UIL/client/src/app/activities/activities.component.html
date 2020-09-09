@@ -1,5 +1,5 @@
 <div class="row flex-nowrap container-fluid anyClass">
-    <div *ngFor="let order of allOrders; let i = index" style="margin-right: 3%;">
+    <div *ngFor="let order of allOrdersNotCompleted; let i = index" style="margin-right: 3%;">
         <app-ordercard [order]="order" [index]="i+1" (sendFlag)="retrieveFlag($event)"></app-ordercard>
     </div>
 </div>
@@ -11,6 +11,10 @@
     <br>
     <div>
         <app-orderdetails></app-orderdetails>
+    </div>
+    <br>
+    <div>
+        <button type="button" class="btn btn-info" (click)="orderCompleted()">Order completed</button> - <a>Completed Orders : {{allOrdersCompleted.length}} items</a>
     </div>
 </div>
 
