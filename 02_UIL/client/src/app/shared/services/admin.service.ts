@@ -14,8 +14,9 @@ export class AdminService {
   readonly rootUrl = 'http://localhost:3000/';
 
   public allUsers:User[];
-  public allOrders: Order[];
-  public currentOrder:Order={completed: null, customerID: '', date:'', items:null, time:'', totalPrice:null}
+  public allOrdersNotCompleted: Order[];
+  public allOrdersCompleted: Order[];
+  public currentOrder:Order={_id: '', completed: null, customerID: '', date:'', items:null, time:'', totalPrice:null}
   public currentUser:User={isAdmin: null, _id: '', name: '', email: ''};
 
 
@@ -33,10 +34,13 @@ export class AdminService {
       .get(this.rootUrl + 'admin/orders', tokenHeader)
       .pipe(
         tap((res) => {
-          this.allOrders=[]
+          this.allOrdersNotCompleted=[]
+          this.allOrdersCompleted=[]
           for(var order in res)
             if(!res[order].completed)
-              this.allOrders.push(res[order])
+              this.allOrdersNotCompleted.push(res[order])
+            else
+              this.allOrdersCompleted.push(res[order])
         })
       );
   }
@@ -57,5 +61,17 @@ export class AdminService {
             this.allUsers.push(res[user])
         })
       );
+  }
+
+  UpdateOrder(itemToUpdate){
+    const tokenHeader = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this.authService.token}`
+      ),
+    };
+    return this.http
+      .put(this.rootUrl + `admin/order/update/${this.currentOrder._id}`, itemToUpdate, tokenHeader)
+
   }
 }

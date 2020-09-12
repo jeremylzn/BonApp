@@ -43,5 +43,14 @@ router.get('/orders', auth, async(req, res) => {
     }
 })
 
+// ADMIN - Update specific order
+router.put('/admin/order/update/:id', authAsAdmin, async(req, res) => {
+    var id = req.params.id;
+    var item = req.body;
+    const result = await Order.updateOne({ _id: id }, item)
+    res.send(result);
+});
+
+
 
 module.exports = router

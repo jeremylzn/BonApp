@@ -35,7 +35,6 @@ export class OrdercardComponent implements OnInit {
   }
 
   ChangeDetails(order){
-    console.log(order)
     this.details=true;
     this.sendFlag.emit(this.details);
     for(var key in order) this.AdminService.currentOrder[key]=order[key];
