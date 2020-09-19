@@ -39,8 +39,10 @@ orderSchema.pre("save", async function (next) {
     })
 
     const today = new Date()
-    let currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+    // let currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    let currentDate = new Date().toDateString().split(' ').slice(1).join(' ')
+    // let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+    let currentTime = new Date().toLocaleTimeString()
 
     order.date = currentDate
     order.time = currentTime

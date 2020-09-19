@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { ControladminComponent } from './controladmin/controladmin.component';
-
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,16 +22,19 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  { 
-    path: 'order', 
+  {
+    path: 'order',
     component: OrderComponent,
   },
-  { 
-    path: 'activities', 
+  {
+    path: 'history',
+    component: OrderHistoryComponent,
+  },
+  {
+    path: 'activities',
     component: ActivitiesComponent,
   },
-  { path: 'controladmin', component: ControladminComponent,}
-
+  { path: 'controladmin', component: ControladminComponent },
 ];
 
 @NgModule({

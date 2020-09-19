@@ -19,6 +19,8 @@ import { ControladminComponent } from './controladmin/controladmin.component';
 import { OrdercardComponent } from './activities/ordercard/ordercard.component';
 import { UserdetailsComponent } from './activities/userdetails/userdetails.component';
 import { OrderdetailsComponent } from './activities/orderdetails/orderdetails.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { HistoryItemComponent } from './order-history/history-item/history-item.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { OrderdetailsComponent } from './activities/orderdetails/orderdetails.co
     ControladminComponent,
     OrdercardComponent,
     UserdetailsComponent,
-    OrderdetailsComponent
+    OrderdetailsComponent,
+    OrderHistoryComponent,
+    HistoryItemComponent
   ],
   imports: [
     BrowserModule,

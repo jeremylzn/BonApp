@@ -12,6 +12,9 @@
                 <li routerLinkActive="active">
                     <a class="nav-item nav-link" routerLink="/order">Order Now</a>
                 </li>
+                <li routerLinkActive="active" *ngIf="isAuthenticated">
+                    <a class="nav-item nav-link" routerLink="/history">Order History</a>
+                </li>
                 <li routerLinkActive="active" *ngIf="!isAuthenticated">
                     <a class="nav-item nav-link" routerLink="/login">Login</a>
                 </li>
@@ -19,7 +22,7 @@
                     <a class="nav-item nav-link" routerLink="/signup">Sign Up</a>
                 </li>
                 <li routerLinkActive="active" *ngIf="isAdmin">
-                    <a class="nav-item nav-link" routerLink="/activities">Order Activities</a
+                    <a class="nav-item nav-link" routerLink="/activities">Active Orders</a
           >
         </li>
         <li routerLinkActive="active" *ngIf="isAdmin">

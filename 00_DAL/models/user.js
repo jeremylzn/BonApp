@@ -48,7 +48,7 @@ userSchema.virtual('orders', {
 userSchema.methods.generateAuthToken = async function () {
     const user = this
 
-    const token = jwt.sign({ _id: user._id.toString() }, 'thisisasecrettoken', { expiresIn: '30 minutes' })
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisisasecrettoken')
     user.token = token
 
     await user.save()
@@ -72,7 +72,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
     return user
 }
-
 
 // Middleware for hashing the password using bcrypt algorithm
 // This runs just before saving the document

@@ -6,3 +6,8 @@
 .alert-success {
   margin-top: 3%;
 }
+
+.cart {
+  position: fixed;
+  width: 20%;
+}

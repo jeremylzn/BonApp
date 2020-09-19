@@ -8,70 +8,73 @@ import { tap } from 'rxjs/operators';
 import { Order } from '../models/order.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminService {
   readonly rootUrl = 'http://localhost:3000/';
 
-  public allUsers:User[];
+  public allUsers: User[];
   public allOrdersNotCompleted: Order[];
   public allOrdersCompleted: Order[];
-  public currentOrder:Order={_id: '', completed: null, customerID: '', date:'', items:null, time:'', totalPrice:null}
-  public currentUser:User={isAdmin: null, _id: '', name: '', email: ''};
+  public currentOrder: Order = {
+    _id: '',
+    completed: null,
+    customerID: '',
+    date: '',
+    items: null,
+    time: '',
+    totalPrice: null,
+  };
+  public currentUser: User = { isAdmin: null, _id: '', name: '', email: '' };
 
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-
-  constructor(private http: HttpClient, private authService: AuthService) { }
-
-  getAllOrders(){
+  getAllOrders() {
     const tokenHeader = {
       headers: new HttpHeaders().set(
         'Authorization',
         `Bearer ${this.authService.token}`
       ),
     };
-    return this.http
-      .get(this.rootUrl + 'admin/orders', tokenHeader)
-      .pipe(
-        tap((res) => {
-          this.allOrdersNotCompleted=[]
-          this.allOrdersCompleted=[]
-          for(var order in res)
-            if(!res[order].completed)
-              this.allOrdersNotCompleted.push(res[order])
-            else
-              this.allOrdersCompleted.push(res[order])
-        })
-      );
+    return this.http.get(this.rootUrl + 'admin/orders', tokenHeader).pipe(
+      tap((res) => {
+        this.allOrdersNotCompleted = [];
+        this.allOrdersCompleted = [];
+        
+        for (var order in res)
+          if (!res[order].completed)
+            this.allOrdersNotCompleted.push(res[order]);
+          else this.allOrdersCompleted.push(res[order]);
+      })
+    );
   }
 
-  getAllUsers(){
+  getAllUsers() {
     const tokenHeader = {
       headers: new HttpHeaders().set(
         'Authorization',
         `Bearer ${this.authService.token}`
       ),
     };
-    return this.http
-      .get(this.rootUrl + 'admin/users', tokenHeader)
-      .pipe(
-        tap((res) => {
-          this.allUsers=[]
-          for(var user in res)
-            this.allUsers.push(res[user])
-        })
-      );
+    return this.http.get(this.rootUrl + 'admin/users', tokenHeader).pipe(
+      tap((res) => {
+        this.allUsers = [];
+        for (var user in res) this.allUsers.push(res[user]);
+      })
+    );
   }
 
-  UpdateOrder(itemToUpdate){
+  UpdateOrder(itemToUpdate) {
     const tokenHeader = {
       headers: new HttpHeaders().set(
         'Authorization',
         `Bearer ${this.authService.token}`
       ),
     };
-    return this.http
-      .put(this.rootUrl + `admin/order/update/${this.currentOrder._id}`, itemToUpdate, tokenHeader)
-
+    return this.http.put(
+      this.rootUrl + `admin/order/update/${this.currentOrder._id}`,
+      itemToUpdate,
+      tokenHeader
+    );
   }
 }
