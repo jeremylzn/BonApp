@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { MenuItem } from '../models/menu-item.model';
-import { AuthService } from './auth/auth.service';
 import { Order } from '../models/order.model';
 
 @Injectable({
@@ -18,11 +17,7 @@ export class OrderService {
 
   private shoppingCart: MenuItem[] = [];
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getMenu() {
     return this.menu;
@@ -51,15 +46,8 @@ export class OrderService {
   }
 
   getOrderHistory() {
-    const tokenHeader = {
-      headers: new HttpHeaders().set(
-        'Authorization',
-        `Bearer ${this.authService.token}`
-      ),
-    };
-
     return this.http
-      .get<Order[]>(this.rootUrl + 'orders', tokenHeader)
+      .get<Order[]>(this.rootUrl + 'orders')
       .pipe(map((orders) => orders.filter((order) => order.completed)));
   }
 
@@ -73,24 +61,13 @@ export class OrderService {
     this.cartChanged.next(this.shoppingCart);
   }
 
-  //TODO: add order as guest feature, add auth interceptor to save token as header
+  //TODO: add order as guest feature
   submitOrder() {
-    const tokenHeader = {
-      headers: new HttpHeaders().set(
-        'Authorization',
-        `Bearer ${this.authService.token}`
-      ),
-    };
-
-    console.log()
-
     return this.http
-      .post(this.rootUrl + 'orders', { items: this.shoppingCart }, tokenHeader)
+      .post(this.rootUrl + 'orders', { items: this.shoppingCart })
       .pipe(
         tap((res) => {
-          console.log(res);
-
-          // UX: 500ms delay -------- keep?
+          // UX: 500ms delay
           setTimeout(() => this.clearShoppingCart(), 500);
         })
       );

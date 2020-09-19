@@ -55,16 +55,6 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  // public GetHome() {
-  //   //console.log(this.token);
-
-  //   const header = {
-  //     headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
-  //   };
-
-  //   return this.httpRequest.get(this.rootUrl + 'users/home/', header);
-  // }
-
   private handleAuth(
     email: string,
     userID: string,

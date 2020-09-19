@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { UserdetailsComponent } from './activities/userdetails/userdetails.compo
 import { OrderdetailsComponent } from './activities/orderdetails/orderdetails.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { HistoryItemComponent } from './order-history/history-item/history-item.component';
+import { SendTokenInterceptor } from './shared/services/send-token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,16 +41,18 @@ import { HistoryItemComponent } from './order-history/history-item/history-item.
     UserdetailsComponent,
     OrderdetailsComponent,
     OrderHistoryComponent,
-    HistoryItemComponent
+    HistoryItemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
