@@ -1,4 +1,4 @@
-.card, .card-header, .card-body {
+.card, .card-header, .card-body, label {
     cursor: pointer;
 }
 

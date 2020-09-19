@@ -10,16 +10,15 @@ import { AuthResponseData } from '../../models/auth/login-response-data.model';
   providedIn: 'root',
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
-
   readonly rootUrl = 'http://localhost:3000/';
+  user = new BehaviorSubject<User>(null);
 
   public token: String;
 
-  constructor(private httpRequest: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   public SignUp(userInfos: { name: string; email: string; password: string }) {
-    return this.httpRequest
+    return this.http
       .post<AuthResponseData>(this.rootUrl + 'users', userInfos)
       .pipe(
         tap((res) => {
@@ -35,7 +34,7 @@ export class AuthService {
   }
 
   public Login(userCredentials: { email: string; password: string }) {
-    return this.httpRequest
+    return this.http
       .post<AuthResponseData>(this.rootUrl + 'users/login', userCredentials)
       .pipe(
         tap((res) => {
@@ -51,6 +50,8 @@ export class AuthService {
   }
 
   public logout() {
+    this.http.post(this.rootUrl + 'users/logout', {}).subscribe();
+
     this.user.next(null);
     localStorage.removeItem('userData');
   }
