@@ -113,6 +113,8 @@ router.post('/notification/read', auth, async (req, res) => {
 
         await User.findByIdAndUpdate(req.user.id, {notifications: req.user.notifications})
 
+        await req.user.save()
+
         res.status(200).send(req.user.notifications)
     } catch (err) {
         res.status(500).send()

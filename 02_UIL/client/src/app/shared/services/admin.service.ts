@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User } from '../models/auth/login-response-data.model';
+import { User } from '../models/login-response-data.model';
 import { tap } from 'rxjs/operators';
 import { Order } from '../models/order.model';
 

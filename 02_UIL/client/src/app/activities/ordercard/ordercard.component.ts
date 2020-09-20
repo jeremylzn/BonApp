@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 
 import { Order } from '../../shared/models/order.model'
-import { User } from '../../shared/models/auth/login-response-data.model';
+import { User } from '../../shared/models/login-response-data.model';
 import { AdminService } from '../../shared/services/admin.service';
 
 

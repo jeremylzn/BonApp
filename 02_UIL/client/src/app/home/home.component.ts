@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../shared/services/auth/auth.service';
-import { User } from '../shared/models/auth/user.model';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-home',

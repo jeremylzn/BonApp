@@ -34,7 +34,7 @@
       </li>
       <li *ngFor="let notification of notifications" class="list-group-item">
         <p>
-          {{ notification.title }}
+          <span class="badge badge-success">✓</span> {{ notification.title }}
           <span class="timeline-date">{{ notification.date }}</span>
         </p>
       </li>

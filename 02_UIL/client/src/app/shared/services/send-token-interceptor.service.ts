@@ -6,15 +6,16 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './auth.service';
 
-// This interceptor is a service that intercepts 
-// all outgoing HTTP requests that require authentication, 
+// This interceptor is a service that intercepts
+// all outgoing HTTP requests that require authentication,
 // and attaches the token to the headers
 @Injectable()
 export class SendTokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
   readonly rootUrl = 'http://localhost:3000';
+
+  constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     if (
