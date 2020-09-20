@@ -22,6 +22,7 @@ import { OrderdetailsComponent } from './activities/orderdetails/orderdetails.co
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { HistoryItemComponent } from './order-history/history-item/history-item.component';
 import { SendTokenInterceptor } from './shared/services/send-token-interceptor.service';
+import { NotificationsComponent } from './header/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SendTokenInterceptor } from './shared/services/send-token-interceptor.s
     OrderdetailsComponent,
     OrderHistoryComponent,
     HistoryItemComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

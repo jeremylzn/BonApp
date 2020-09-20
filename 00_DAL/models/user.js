@@ -32,15 +32,18 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    notifications: {
+        type: Array
     }
 })
 
 // Create a virtual property (a link between task.owner -> user._id)
 // in order to set a relationship between the two.
 userSchema.virtual('orders', {
-    ref:'Order',
-    localField:'_id',
-    foreignField:'customerID'
+    ref: 'Order',
+    localField: '_id',
+    foreignField: 'customerID'
 })
 
 // This function generates a jwt and stores 
@@ -82,6 +85,10 @@ userSchema.pre('save', async function (next) {
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8)
     }
+
+    // if (user.notifications.length > 5) {
+    //     user.notifications.push({})
+    // }
 
     next()
 })

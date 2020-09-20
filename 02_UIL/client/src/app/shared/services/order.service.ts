@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { MenuItem } from '../models/menu-item.model';
 import { Order } from '../models/order.model';
+import { NotificationsService } from './notifications.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,11 @@ export class OrderService {
 
   private shoppingCart: MenuItem[] = [];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private notificationService: NotificationsService
+  ) {}
 
   getMenu() {
     return this.menu;
@@ -64,9 +69,15 @@ export class OrderService {
   //TODO: add order as guest feature
   submitOrder() {
     return this.http
-      .post(this.rootUrl + 'orders', { items: this.shoppingCart })
+      .post<any>(this.rootUrl + 'orders', { items: this.shoppingCart })
       .pipe(
         tap((res) => {
+          console.log(res);
+          this.notificationService.addNotification({
+            title: 'Order successfully',
+            date: `${res.order.date} | ${res.order.time}`,
+            seen: false,
+          });
           // UX: 500ms delay
           setTimeout(() => this.clearShoppingCart(), 500);
         })
