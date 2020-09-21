@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
-import { User } from '../../models/auth/user.model';
+import { User } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs';
-import { AuthResponseData } from '../../models/auth/login-response-data.model';
+import { AuthResponseData } from '../models/login-response-data.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
-
   readonly rootUrl = 'http://localhost:3000/';
+  user = new BehaviorSubject<User>(null);
 
   public token: String;
 
-  constructor(private httpRequest: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   public SignUp(userInfos: { name: string; email: string; password: string }) {
-    return this.httpRequest
+    return this.http
       .post<AuthResponseData>(this.rootUrl + 'users', userInfos)
       .pipe(
         tap((res) => {
@@ -35,7 +34,7 @@ export class AuthService {
   }
 
   public Login(userCredentials: { email: string; password: string }) {
-    return this.httpRequest
+    return this.http
       .post<AuthResponseData>(this.rootUrl + 'users/login', userCredentials)
       .pipe(
         tap((res) => {
@@ -51,19 +50,11 @@ export class AuthService {
   }
 
   public logout() {
+    this.http.post(this.rootUrl + 'users/logout', {}).subscribe();
+
     this.user.next(null);
     localStorage.removeItem('userData');
   }
-
-  // public GetHome() {
-  //   //console.log(this.token);
-
-  //   const header = {
-  //     headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
-  //   };
-
-  //   return this.httpRequest.get(this.rootUrl + 'users/home/', header);
-  // }
 
   private handleAuth(
     email: string,

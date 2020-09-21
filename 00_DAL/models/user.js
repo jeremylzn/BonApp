@@ -32,15 +32,18 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    notifications: {
+        type: Array
     }
 })
 
 // Create a virtual property (a link between task.owner -> user._id)
 // in order to set a relationship between the two.
 userSchema.virtual('orders', {
-    ref:'Order',
-    localField:'_id',
-    foreignField:'customerID'
+    ref: 'Order',
+    localField: '_id',
+    foreignField: 'customerID'
 })
 
 // This function generates a jwt and stores 
@@ -48,7 +51,7 @@ userSchema.virtual('orders', {
 userSchema.methods.generateAuthToken = async function () {
     const user = this
 
-    const token = jwt.sign({ _id: user._id.toString() }, 'thisisasecrettoken', { expiresIn: '30 minutes' })
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisisasecrettoken')
     user.token = token
 
     await user.save()
@@ -73,7 +76,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
-
 // Middleware for hashing the password using bcrypt algorithm
 // This runs just before saving the document
 userSchema.pre('save', async function (next) {
@@ -82,6 +84,10 @@ userSchema.pre('save', async function (next) {
     // Check if password was modified to prevent double hashing
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8)
+    }
+
+    if (user.notifications.length > 5) {
+        user.notifications.pop()
     }
 
     next()

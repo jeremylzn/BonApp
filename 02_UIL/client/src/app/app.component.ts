@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from './shared/services/auth/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MenuItem } from './shared/models/menu-item.model';
+import { AuthService } from './shared/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 import { OrderService } from './shared/services/order.service'
 
 

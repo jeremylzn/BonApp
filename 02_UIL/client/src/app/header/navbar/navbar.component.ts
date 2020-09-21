@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,12 +20,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user) => {
-      // The 500ms delay is for UX purposes only --------- keep?
+      // The 500ms delay is for UX purposes only
+      // fix bug: unwanted 500ms delay when refreshing page, keep only for login
       setTimeout(() => {
         this.isAuthenticated = user ? true : false;
         this.isAdmin=null;
         if (this.isAuthenticated){
-          this.userName = user.name;
+          this.userName = user.name.split(' ')[0];
           if (user.isAdmin) this.isAdmin=true;
         } else this.userName = null;
       }, 500);
