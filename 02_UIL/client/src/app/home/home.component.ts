@@ -24,13 +24,4 @@ export class HomeComponent implements OnInit {
       else this.userName = 'Guest';
     });
   }
-
-  // public Home() {
-  //   this.AuthService.GetHome().subscribe(
-  //     (res) => this.name = res['name'],
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
 }
