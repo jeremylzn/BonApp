@@ -1,17 +1,14 @@
 <div class="row">
-  <div class="col-md-8">
-      <div class="row">
-        <div class="col-md-6" *ngFor="let item of menu">
-          <app-menu-item
-            [item]="item"
-            (click)="onAddItemToCart(item)"
-          ></app-menu-item>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6" @fade *ngFor="let item of menu">
+                <app-menu-item [item]="item" (click)="onAddItemToCart(item)"></app-menu-item>
+            </div>
         </div>
-      </div>
-  </div>
+    </div>
 
-  <!-- Shopping Cart -->
-  <div class="col-md-4">
-    <app-cart></app-cart>
-  </div>
+    <!-- Shopping Cart -->
+    <div class="col-md-4">
+        <app-cart @fade></app-cart>
+    </div>
 </div>
