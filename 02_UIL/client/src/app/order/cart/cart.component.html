@@ -1,6 +1,7 @@
 <div class="cart">
   <div class="card">
     <div class="card-body">
+      <!-- Submit button -->
       <button
         (click)="onSubmitOrder()"
         class="btn btn-primary rounded-0 btn-block"
@@ -8,25 +9,58 @@
       >
         Submit
       </button>
-      <p *ngIf="shoppingCart.length > 0" class="text-center">
-        Total price: ₪{{ totalPrice }}
-      </p>
+
       <hr />
-  
-      <p *ngIf="shoppingCart.length == 0">Your cart is empty</p>
-  
+
+      <p *ngIf="shoppingCart.length == 0" class="text-center">Your cart is empty</p>
+      <!-- Cart items -->
       <ul *ngFor="let item of shoppingCart; let i = index" class="list-group">
-        <div class="list-group-item">
-          <a>{{ item.name }} - ₪{{ item.price }}</a>
-          <small class="pull-right remove-btn" (click)="onRemoveItem(i)"
-            >Remove</small
-          >
+        <div
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div class="btn-group" role="group">
+            <!-- Minus(-) Button -->
+            <button
+              type="button"
+              class="btn btn-sm minusBtn"
+              (click)="onChangeQuantity('-', i)"
+            >
+              –
+            </button>
+            <!-- Item Quantity -->
+            <strong class="btn-sm quantityText text-center">{{
+              item.quantity
+            }}</strong>
+            <!-- Plus(+) Button -->
+            <button
+              type="button"
+              class="btn btn-sm plusBtn"
+              (click)="onChangeQuantity('+', i)"
+            >
+              +
+            </button>
+          </div>
+          <!-- Item name -->
+          <a class="itemText">{{ item.name }}</a>
+          <div class="d-flex flex-column">
+            <!-- Item price -->
+            <a>₪{{ item.price * item.quantity }}</a>
+            <!-- Remove Button -->
+            <a
+              class="pull-right remove-btn text-center"
+              (click)="onRemoveItem(i)"
+              >Remove</a
+            >
+          </div>
         </div>
       </ul>
     </div>
+    <p *ngIf="shoppingCart.length > 0" class="text-center">
+      Total price: ₪{{ totalPrice }}
+    </p>
   </div>
-  
-  <!-- UX: Display loading spinner for 500ms before success alert ------- keep? -->
+
+  <!-- UX: Display loading spinner for 500ms before success alert -->
   <app-loading-spinner
     *ngIf="isLoading"
     class="d-flex justify-content-center"
@@ -34,5 +68,4 @@
   <div class="alert alert-success" role="alert" *ngIf="orderCompleted">
     Order successfully placed!
   </div>
-  
 </div>
