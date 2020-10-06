@@ -24,6 +24,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
 import { HistoryItemComponent } from './order-history/history-item/history-item.component';
 import { SendTokenInterceptor } from './shared/services/send-token-interceptor.service';
 import { NotificationsComponent } from './header/notifications/notifications.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { NotificationsComponent } from './header/notifications/notifications.com
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
     BrowserAnimationsModule,
   ],
   providers: [

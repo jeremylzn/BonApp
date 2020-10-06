@@ -32,9 +32,21 @@ export class OrderService {
     return this.shoppingCart;
   }
 
-  // TODO: add findDuplicateItems to automatically increase quantity of selected item
+  // This function gets a new item, checks if it already exists in the shopping cart and adds it accordingly.
   addItemToCart(item: MenuItem) {
-    this.shoppingCart.push({ ...item, quantity: 1 });
+    let index = this.shoppingCart.findIndex(
+      (element) => element.name == item.name
+    );
+    if (index === -1) {
+      this.shoppingCart.push({
+        ...item,
+        quantity: item.quantity > 1 ? item.quantity : 1,
+      });
+    } else {
+      this.shoppingCart[index].quantity +=
+        item.quantity > 1 ? item.quantity : 1;
+    }
+
     this.cartChanged.next(this.shoppingCart);
   }
 
@@ -43,6 +55,15 @@ export class OrderService {
     this.cartChanged.next(this.shoppingCart);
 
     console.log(this.shoppingCart);
+  }
+
+  changeItemQuantity(operation: string, index: number) {
+    if (operation == '+') {
+      this.shoppingCart[index].quantity++;
+    } else {
+      this.shoppingCart[index].quantity--;
+    }
+    this.cartChanged.next(this.shoppingCart);
   }
 
   clearShoppingCart() {

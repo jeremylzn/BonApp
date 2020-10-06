@@ -11,22 +11,28 @@ import { NotificationsService } from 'src/app/shared/services/notifications.serv
 export class NotificationsComponent implements OnInit {
   notifications: NotificationMsg[] = [];
   unseenNotifications: NotificationMsg[] = [];
+  isOpen: boolean = false;
 
   constructor(private notificationService: NotificationsService) {}
 
   ngOnInit(): void {
-    this.notificationService
-      .fetchNotifications();
+    this.notificationService.fetchNotifications();
 
-      this.notificationService.notificationsChanged.subscribe((notifications: NotificationMsg[]) => {
+    this.notificationService.notificationsChanged.subscribe(
+      (notifications: NotificationMsg[]) => {
         this.notifications = notifications;
-        this.unseenNotifications = notifications.filter((notification: NotificationMsg) => !notification.seen)
-      })
+        this.unseenNotifications = notifications.filter(
+          (notification: NotificationMsg) => !notification.seen
+        );
+      }
+    );
   }
 
   onMarkNotificationsAsSeen() {
-    this.notificationService.markNotificationsAsSeen().subscribe(notification => {
-      this.unseenNotifications = [];
-    })
+    this.notificationService
+      .markNotificationsAsSeen()
+      .subscribe((notification) => {
+        this.unseenNotifications = [];
+      });
   }
 }
