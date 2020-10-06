@@ -7,3 +7,18 @@
     margin-left: 2%;
     cursor: pointer;
 }
+
+.navbar {
+    z-index: 2;
+    opacity: 0.8;
+}
+
+
+/*code to change background color*/
+
+.navbar-nav>.active>a.admin_options {
+    background-image: linear-gradient(#b60000, #4b0000);
+    color: white;
+    opacity: 0.8;
+    border-radius: 5px;
+}

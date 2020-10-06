@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userName: string;
   isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user) => {
@@ -31,6 +31,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         } else this.userName = null;
       }, 500);
     });
+
+ 
+
   }
 
   onLogout() {
