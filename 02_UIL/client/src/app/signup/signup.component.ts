@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/models/user.model';
+import { NavbarService } from '../shared/services/navbar.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,9 +15,11 @@ export class SignupComponent implements OnInit {
   public signupForm: FormGroup;
   public registrationSuccess: boolean;
 
-  constructor(private AuthService: AuthService) {}
+  constructor(private AuthService: AuthService,private navbarService:NavbarService) {}
 
   ngOnInit() {
+    this.navbarService.changeHeaderTitle('Sign Up') // Send the title to NavbarService
+
     this.signupForm = new FormGroup({
       name: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),

@@ -1,9 +1,9 @@
-<div class="row flex-nowrap container-fluid anyClass">
+<div class="row flex-nowrap container-fluid anyClass" @fade>
     <div *ngFor="let order of allOrdersNotCompleted; let i = index" style="margin-right: 3%;">
         <app-ordercard [order]="order" [index]="i+1" (sendFlag)="retrieveFlag($event)"></app-ordercard>
     </div>
 </div>
-<div *ngIf="(details && !isLoading)">
+<div *ngIf="(details && !isLoading)" @fade>
     <div>
         <app-userdetails></app-userdetails>
     </div>
