@@ -11,14 +11,19 @@
 .navbar {
     z-index: 2;
     opacity: 0.8;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 
-/*code to change background color*/
+/*code to change background color of admin options*/
 
-.navbar-nav>.active>a.admin_options {
-    background-image: linear-gradient(#b60000, #4b0000);
+.navbar-nav>.active>a.admin_options:hover,
+.nav-item.active .nav-link,
+.nav-item:hover .nav-link,
+.dropdown-menu {
     color: white;
     opacity: 0.8;
+    background-color: #265077;
     border-radius: 5px;
 }
