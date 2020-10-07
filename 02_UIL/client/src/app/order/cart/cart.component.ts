@@ -30,12 +30,20 @@ export class CartComponent implements OnInit {
   private calculateTotalPrice() {
     this.totalPrice = 0;
     this.shoppingCart.forEach((item) => {
-      this.totalPrice += item.price;
+      this.totalPrice += item.price * item.quantity;
     });
   }
 
   onRemoveItem(index: number) {
     this.orderService.removeItemFromCart(index);
+  }
+
+  onChangeQuantity(operation: string, index: number) {
+    if (this.shoppingCart[index].quantity == 1 && operation == '-') {
+      return;
+    }
+
+    this.orderService.changeItemQuantity(operation, index);
   }
 
   onSubmitOrder() {

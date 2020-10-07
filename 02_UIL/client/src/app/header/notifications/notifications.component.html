@@ -11,7 +11,7 @@
   >
     <!-- This is the bell icon -->
     <i
-      (click)="onMarkNotificationsAsSeen()"
+      (click)="isOpen = !isOpen; isOpen ? onMarkNotificationsAsSeen() : null"
       class="fa fa-bell-o"
       style="font-size: 20px; float: left; color: white"
     >

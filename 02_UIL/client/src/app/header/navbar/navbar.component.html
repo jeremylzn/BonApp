@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" routerLink="/">Bon App'</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -37,6 +37,8 @@
                 </li>
             </ul>
         </div>
+        </li>
+        </ul>
     </div>
 
     <div *ngIf="isAuthenticated">
@@ -47,7 +49,6 @@
         <span *ngIf="userName">Welcome Back, {{ userName }}!</span>
         <span *ngIf="!userName">Hello, guest!</span>
     </div>
-
     <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">
             <a (click)="onLogout()">Logout</a>

@@ -6,3 +6,7 @@
 .list-group-item, .list-group {
     display: inline-block;
 }
+
+.btn {
+    width: 50%;
+}
