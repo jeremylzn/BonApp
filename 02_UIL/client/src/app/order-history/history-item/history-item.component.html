@@ -1,0 +1,27 @@
+<div
+  class="card mx-4 mb-5"
+  placement="bottom"
+  ngbTooltip="Total: {{ order.totalPrice }}₪"
+>
+  <!-- Card Header -->
+  <div class="card-header d-flex justify-content-between">
+    <h5><span class="badge badge-secondary">#</span></h5>
+    <h5>
+      <span class="badge badge-light">{{ orderTime }}</span>
+    </h5>
+  </div>
+  <!-- Card Body -->
+  <div class="row card-body">
+    <div class="list-group">
+      <div class="list-group-item mx-2" *ngFor="let item of order.items">
+        <small>{{ item.quantity }} <small>x</small> {{ item.name }}</small>
+      </div>
+    </div>
+  </div>
+  <!-- Card Footer -->
+  <div class="card-footer d-flex justify-content-center">
+    <button class="btn btn-sm btn-primary" (click)="onReorder()">
+      Reorder
+    </button>
+  </div>
+</div>

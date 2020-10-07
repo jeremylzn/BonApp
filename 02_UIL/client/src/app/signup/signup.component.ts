@@ -1,50 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/services/user.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/models/user.model';
+import { NavbarService } from '../shared/services/navbar.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+  public user: User;
+  public signupForm: FormGroup;
+  public registrationSuccess: boolean;
 
-  public user:User;
-  public registration:boolean;
-  public checkemail:boolean=true;
+  constructor(private AuthService: AuthService,private navbarService:NavbarService) {}
 
-  constructor(private UserService : UserService) {
-    this.user=this.UserService.user
+  ngOnInit() {
+    this.navbarService.changeHeaderTitle('Sign Up') // Send the title to NavbarService
+
+    this.signupForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
   }
 
-  ngOnInit(): void {
-    this.resetForm();
+  public checkPassword(password: string) {
+    return password === this.signupForm.get('password').value ? null : true;
   }
 
-  public resetForm(){
-    if(this.user!=null){
-      this.user.name='',
-      this.user.email='',
-      this.user.password=''
-    }
-  }
+  public onSubmit() {
+    const userInfo = {
+      name: this.signupForm.get('name').value,
+      email: this.signupForm.get('email').value,
+      password: this.signupForm.get('password').value,
+    };
 
-  public checkPassword(password:string){
-    return password===this.user.password ? null:true;
-  }
-
-  public checkEmail(email:string) {
-    const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (validEmailRegEx.test(email)) {
-        console.log(email);
-        this.checkemail = true;
-    }else {
-      this.checkemail = false;
-    }
-}
-
-  public onSubmit(user:User){
-    this.UserService.SignUp(user)
-    .subscribe(res=>{this.registration=true; this.resetForm();}, err=>console.log("Failed.."))
+    this.AuthService.SignUp(userInfo).subscribe(
+      (res) => {
+        this.registrationSuccess = true;
+        this.signupForm.reset();
+      },
+      (err) => {
+        this.registrationSuccess = false;
+        console.log('Failed..');
+      }
+    );
   }
 }
