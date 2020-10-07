@@ -1,15 +1,14 @@
 .navbar-text {
-  color: white;
+    color: white;
 }
 
 .navbar-right {
-  color: white;
-  margin-left: 2%;
-  cursor: pointer;
+    color: white;
+    margin-left: 2%;
+    cursor: pointer;
 }
 
 .navbar {
-<<<<<<< HEAD
     z-index: 2;
     opacity: 0.8;
     font-size: 16px;
@@ -28,17 +27,3 @@
     background-color: #265077;
     border-radius: 5px;
 }
-=======
-  /* z-index: 2; */
-  opacity: 0.9;
-}
-
-/*code to change background color*/
-
-.navbar-nav > .active > a.admin_options {
-  background-image: linear-gradient(#b60000, #4b0000);
-  color: white;
-  opacity: 0.8;
-  border-radius: 5px;
-}
->>>>>>> bb39ac9faaf808a4582c5bfd53d08d49ebf75d6f
