@@ -31,14 +31,12 @@
         Control Admin
       </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item">Menu Manager</a>
-                        <a class="dropdown-item">Users Manager</a>
+                        <a class="dropdown-item" routerLink="/controladmin/menu">Menu Manager</a>
+                        <a class="dropdown-item" routerLink="/controladmin/users">Users Manager</a>
                     </div>
                 </li>
             </ul>
         </div>
-        </li>
-        </ul>
     </div>
 
     <div *ngIf="isAuthenticated">
@@ -49,6 +47,7 @@
         <span *ngIf="userName">Welcome Back, {{ userName }}!</span>
         <span *ngIf="!userName">Hello, guest!</span>
     </div>
+
     <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">
             <a (click)="onLogout()">Logout</a>

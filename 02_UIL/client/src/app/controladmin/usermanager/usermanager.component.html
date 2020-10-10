@@ -1,1 +1,29 @@
-<p>usermanager works!</p>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Users List</h4>
+                <div class="table-responsive">
+                    <table class="table" *ngIf="!isLoading">
+                        <thead>
+                            <tr class="text-center">
+                                <th> Full Name </th>
+                                <th> Email </th>
+                                <th> Status </th>
+                                <th> Update User </th>
+                                <th> Delete User </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let user of allUsers" app-useritem [user]="user">
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loading-spinner *ngIf="isLoading" class="d-flex justify-content-center">
+</app-loading-spinner>

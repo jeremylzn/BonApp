@@ -9,7 +9,7 @@
 }
 
 .navbar {
-    z-index: 2;
+    /* z-index: 2; */
     opacity: 0.8;
     font-size: 16px;
     font-weight: bold;
@@ -18,12 +18,10 @@
 
 /*code to change background color of admin options*/
 
-.navbar-nav>.active>a.admin_options:hover,
-.nav-item.active .nav-link,
-.nav-item:hover .nav-link,
-.dropdown-menu {
+.admin_options:hover {
     color: white;
     opacity: 0.8;
     background-color: #265077;
     border-radius: 5px;
+    cursor: pointer;
 }
