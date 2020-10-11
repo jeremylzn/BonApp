@@ -1,5 +1,5 @@
 <div class="row flex-nowrap container-fluid anyClass" @fade>
-    <div *ngFor="let order of allOrdersNotCompleted; let i = index" style="margin-right: 3%;">
+    <div class="mr-3" *ngFor="let order of allOrdersNotCompleted; let i = index" >
         <app-ordercard [order]="order" [index]="i+1" (sendFlag)="retrieveFlag($event)"></app-ordercard>
     </div>
 </div>

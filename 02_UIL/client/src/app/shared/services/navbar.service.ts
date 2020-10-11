@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavbarService {
-
   newTitle = new Subject<string>();
 
-
-  constructor() { }
+  constructor() {}
 
   changeHeaderTitle(componentName) {
     this.newTitle.next(componentName);
