@@ -1,0 +1,13 @@
+<td> {{user.name}} </td>
+<td> {{user.email}} </td>
+<td>
+    <label class="badge badge-gradient-success" *ngIf="!user.isAdmin">CLIENT</label>
+    <label class="badge badge-gradient-success" *ngIf="user.isAdmin">ADMIN</label>
+
+</td>
+<td> <button class="btn btn-warning" style="color:white" (click)="updateAlertBox()">
+        UPDATE
+      </button> </td>
+<td> <button class="btn btn-danger" (click)="deleteAlertBox()">
+        DELETE
+      </button> </td>

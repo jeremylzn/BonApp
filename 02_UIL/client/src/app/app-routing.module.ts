@@ -5,7 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { ActivitiesComponent } from './activities/activities.component';
-import { ControladminComponent } from './controladmin/controladmin.component';
+import { UsermanagerComponent } from './controladmin/usermanager/usermanager.component';
+import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 
 const routes: Routes = [
@@ -34,7 +35,11 @@ const routes: Routes = [
     path: 'activities',
     component: ActivitiesComponent,
   },
-  { path: 'controladmin', component: ControladminComponent },
+  { path: 'controladmin/users',
+    component: UsermanagerComponent
+  },
+  { path: 'controladmin/menu', component: MenumanagerComponent },
+
 ];
 
 @NgModule({

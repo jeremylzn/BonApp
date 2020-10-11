@@ -56,4 +56,17 @@ export class AdminService {
       itemToUpdate
     );
   }
+
+  updateUser(itemToUpdate, userId) {
+    return this.http.put(
+      this.rootUrl + `admin/user/update/${userId}`,
+      itemToUpdate
+    );
+  }
+
+  deleteUser(userId) {
+    return this.http.delete(
+      this.rootUrl + `admin/users/${userId}`
+    );
+  }
 }

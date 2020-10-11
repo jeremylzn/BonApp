@@ -24,7 +24,10 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
 import { HistoryItemComponent } from './order-history/history-item/history-item.component';
 import { SendTokenInterceptor } from './shared/services/send-token-interceptor.service';
 import { NotificationsComponent } from './header/notifications/notifications.component';
+import { UsermanagerComponent } from './controladmin/usermanager/usermanager.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
+import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OrderHistoryComponent,
     HistoryItemComponent,
     NotificationsComponent,
+    UsermanagerComponent,
+    MenumanagerComponent,
+    UseritemComponent,
   ],
   imports: [
     BrowserModule,
