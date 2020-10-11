@@ -4,6 +4,11 @@
   font-size: 14px;
 }
 
+.cart-items {
+  overflow-y: auto;
+  max-height: 494px;
+}
+
 .itemText {
   font-size: 18px;
   font-weight: 700;
