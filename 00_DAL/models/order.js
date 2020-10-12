@@ -1,6 +1,24 @@
 const mongoose = require('mongoose')
 const User = require('./user')
+const moment = require('moment')
 
+const itemSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1
+    }
+
+});
 const orderSchema = new mongoose.Schema({
     customerID: {
         type: mongoose.Schema.Types.ObjectId,
@@ -8,7 +26,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     items: {    // Add validation to quantity and price so it can't be negative (add Item sub-schema?)
-        type: Array,
+        type: [itemSchema],
         required: true
     },
     completed: {
@@ -38,11 +56,9 @@ orderSchema.pre("save", async function (next) {
         order.totalPrice += item.price * item.quantity
     })
 
-    const today = new Date()
-    // let currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    let currentDate = new Date().toDateString().split(' ').slice(1).join(' ')
-    // let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-    let currentTime = new Date().toLocaleTimeString()
+    const today = new moment()
+    let currentDate = today.format('DD-MM-YYYY')
+    let currentTime = today.format('HH:mm:ss')
 
     order.date = currentDate
     order.time = currentTime

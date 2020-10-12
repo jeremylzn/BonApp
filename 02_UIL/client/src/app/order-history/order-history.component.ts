@@ -10,25 +10,26 @@ import { OrderService } from '../shared/services/order.service';
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css'],
-  animations: [
-    fade
-  ]
+  animations: [fade],
 })
 export class OrderHistoryComponent implements OnInit {
   orderHistory: Order[] = [];
 
-
-  constructor(private orderService: OrderService, private router: Router, private navbarService:NavbarService) {}
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private navbarService: NavbarService
+  ) {}
 
   ngOnInit(): void {
-    this.navbarService.changeHeaderTitle('Order History') // Send the title to NavbarService
+    this.navbarService.changeHeaderTitle('Order History'); // Send the title to NavbarService
 
     this.orderService.getOrderHistory().subscribe((orderHistory: Order[]) => {
-      this.orderHistory = orderHistory;
+      this.orderHistory = orderHistory.reverse();
     });
   }
 
   onOrderNow() {
-    this.router.navigate(['/order'])
+    this.router.navigate(['/order']);
   }
 }
