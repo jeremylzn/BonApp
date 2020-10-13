@@ -17,7 +17,10 @@ export class HistoryItemComponent implements OnInit {
   constructor(private orderService: OrderService, private router: Router) {}
 
   ngOnInit(): void {
-    this.orderTime = moment(new Date(`${this.order.date} ${this.order.time}`)).format('DD/MM/YY | hh:mm');
+    this.orderTime =
+      moment(this.order.date, 'DD-MM-YYYY').format('DD/MM/YYYY') +
+      ' | ' +
+      moment(this.order.time, 'HH-mm-ss').format('HH:mm');
   }
 
   onReorder() {

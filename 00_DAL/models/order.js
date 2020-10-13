@@ -20,6 +20,9 @@ const itemSchema = new mongoose.Schema({
 
 });
 const orderSchema = new mongoose.Schema({
+    orderID: {
+        type: Number
+    },
     customerID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -60,6 +63,7 @@ orderSchema.pre("save", async function (next) {
     let currentDate = today.format('DD-MM-YYYY')
     let currentTime = today.format('HH:mm:ss')
 
+    order.orderID = Math.floor(Math.random()*999+1)
     order.date = currentDate
     order.time = currentTime
 
