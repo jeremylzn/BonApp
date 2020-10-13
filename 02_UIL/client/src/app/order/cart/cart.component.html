@@ -59,9 +59,12 @@
         </ul>
       </div>
     </div>
-    <p *ngIf="shoppingCart.length > 0" class="text-center">
-      Total price: ₪{{ totalPrice }}
-    </p>
+
+    <div class="d-flex justify-content-between" *ngIf="shoppingCart.length > 0">
+      <div class="footer"></div>
+      <a class="footer">Total price: ₪{{ totalPrice }}</a>
+      <a class="footer "><span class="clear-btn" (click)="onClearCart()">Clear</span></a>
+    </div>
   </div>
 
   <!-- UX: Display loading spinner for 500ms before success alert -->
