@@ -16,6 +16,7 @@ export class AdminService {
   public allOrdersCompleted: Order[];
   public currentOrder: Order = {
     _id: '',
+    orderID: null,
     completed: null,
     customerID: '',
     date: '',

@@ -10,7 +10,7 @@
     z-index: 2;
     color: black;
     display: flex;
-    font-family: cursive;
+    font-family: cursive, Verdana, Tahoma, sans-serif;
     /* font-size: 5vw; */
 }
 

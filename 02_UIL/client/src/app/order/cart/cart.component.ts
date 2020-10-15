@@ -38,6 +38,10 @@ export class CartComponent implements OnInit {
     this.orderService.removeItemFromCart(index);
   }
 
+  onClearCart() {
+    this.orderService.clearShoppingCart();
+  }
+
   onChangeQuantity(operation: string, index: number) {
     if (this.shoppingCart[index].quantity == 1 && operation == '-') {
       return;
