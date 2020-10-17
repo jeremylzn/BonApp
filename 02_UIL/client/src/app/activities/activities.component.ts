@@ -6,6 +6,7 @@ import { NavbarService } from '../shared/services/navbar.service';
 import { Order } from '../shared/models/order.model';
 import { Observable } from 'rxjs';
 import { fade } from '../animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activities',
@@ -21,7 +22,7 @@ export class ActivitiesComponent implements OnInit {
   allOrdersCompleted: Order[] = [];
   isLoading: boolean = true;
 
-  constructor(private AdminService: AdminService, private navbarService: NavbarService) {}
+  constructor(private AdminService: AdminService, private navbarService: NavbarService, private router:Router) {}
 
   ngOnInit(): void {
     this.navbarService.changeHeaderTitle('Active Orders') // Send the title to NavbarService
@@ -48,5 +49,7 @@ export class ActivitiesComponent implements OnInit {
     var completed = { completed: !this.AdminService.currentOrder.completed };
     this.AdminService.UpdateOrder(completed).subscribe((res) => {});
     this.allOrdersAndUsers();
+    this.details=false;
+
   }
 }
