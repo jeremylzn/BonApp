@@ -28,6 +28,7 @@ import { UsermanagerComponent } from './controladmin/usermanager/usermanager.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
 import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.component';
+import { MenumanageritemComponent } from './controladmin/menumanager/menumanageritem/menumanageritem.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.
     UsermanagerComponent,
     MenumanagerComponent,
     UseritemComponent,
+    MenumanageritemComponent,
   ],
   imports: [
     BrowserModule,
