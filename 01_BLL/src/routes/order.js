@@ -9,7 +9,7 @@ const authAsAdmin = require('../middleware/authAsAdmin')
 router.post('/orders', auth, async(req, res) => {
     const order = new Order({
         ...req.body,
-        customerID: req.user._id
+        customerID: req.user ? req.user._id : null
     })
 
     try {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { OrderService } from 'src/app/shared/services/order.service';
 import { MenuItem } from '../../shared/models/menu-item.model';
@@ -15,7 +16,10 @@ export class CartComponent implements OnInit {
   orderCompleted: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private orderService: OrderService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.shoppingCart = this.orderService.getCart();
@@ -51,16 +55,19 @@ export class CartComponent implements OnInit {
   }
 
   onSubmitOrder() {
-    this.orderService.submitOrder().subscribe(
-      (res) => {
-        // UX: Display loading spinner for 500ms and then success message ------- keep?
-        this.isLoading = true;
-        setTimeout(() => {
-          this.isLoading = false;
-          this.orderCompleted = true;
-        }, 500);
-      },
-      (errResponse) => console.log(errResponse.error.error)
-    );
+    if (!this.authService.isLoggedIn()) {
+      this.orderService.handleGuestOrder();
+    } else
+      this.orderService.submitOrder().subscribe(
+        (res) => {
+          // UX: Display loading spinner for 500ms and then success message ------- keep?
+          this.isLoading = true;
+          setTimeout(() => {
+            this.isLoading = false;
+            this.orderCompleted = true;
+          }, 500);
+        },
+        (errResponse) => console.log(errResponse.error.error)
+      );
   }
 }

@@ -5,6 +5,8 @@ export class User {
     public token: string,
     public isAdmin?: boolean,
     public name?: string,
+    public phone?: string,
+    public address?: string,
     public notifications?: {title: string, date: string}
   ) {}
 }
