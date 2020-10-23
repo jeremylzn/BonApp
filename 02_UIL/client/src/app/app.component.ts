@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MenuService } from './shared/services/menu.service';
 import { AuthService } from './shared/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { OrderService } from './shared/services/order.service'
@@ -14,15 +14,12 @@ import { OrderService } from './shared/services/order.service'
 export class AppComponent implements OnInit {
   title = 'BonApp';
 
-  constructor(private authService: AuthService, private http: HttpClient, private OrderService:OrderService) {}
+  constructor(private authService: AuthService, private menuService:MenuService) {}
 
   ngOnInit() {
     this.authService.autoLogin();
 
-    // Add the menu from external json
-    this.http.get('./assets/menu.json').subscribe(
-      data => {
-        for(var key in data) this.OrderService.menu[key]=data[key];
-      });
+    this.menuService.getAllMenu().subscribe((res) => {});
+
   }
 }

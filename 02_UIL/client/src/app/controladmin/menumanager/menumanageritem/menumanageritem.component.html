@@ -1,0 +1,15 @@
+<div class="card">
+    <h5 class="card-header text-center">
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close" (click)="removeItem()"> 
+    <span aria-hidden="true">×</span> 
+</button>{{ item.name }}</h5>
+    <div class="row card-body">
+        <div class="col-sm-6">
+            <p>{{ item.description }}</p>
+            <label>₪{{ item.price }}.00</label>
+        </div>
+        <div class="col-sm-6">
+            <img [src]="item.imagePath" class="img-responsive float-right" />
+        </div>
+    </div>
+</div>

@@ -5,10 +5,13 @@ const cors = require('cors')
 // Import mongoose models
 const User = require('../../00_DAL/models/user')
 const Order = require('../../00_DAL/models/order')
+const ItemMenu = require('../../00_DAL/models/menu')
+
 
 // Import routes
 const userRouter = require('./routes/user')
 const orderRouter = require('./routes/order')
+const menuRouter = require('./routes/menu')
 
 const app = express()
 app.use(cors())
@@ -21,6 +24,8 @@ app.use(express.json())
 // Use routes
 app.use(userRouter)
 app.use(orderRouter)
+app.use(menuRouter)
+
 
 
 app.get('/', (req, res) => {
