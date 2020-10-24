@@ -20,6 +20,7 @@ export class AdminService {
     completed: null,
     customerID: '',
     date: '',
+    customerDetails: null,
     items: null,
     time: '',
     totalPrice: null,

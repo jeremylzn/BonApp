@@ -2,7 +2,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../../../00_DAL/models/user");
 
 const auth = async (req, res, next) => {
-  if (req.method == "POST" && req.url == "/orders" && req.body.customerDetails.isGuest == true) {
+  if (
+    req.method == "POST" &&
+    req.url == "/orders" &&
+    req.body.customerDetails.isGuest == true
+  ) {
     next();
   } else
     try {
