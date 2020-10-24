@@ -15,16 +15,20 @@ export class SignupComponent implements OnInit {
   public signupForm: FormGroup;
   public registrationSuccess: boolean;
 
-  constructor(private AuthService: AuthService,private navbarService:NavbarService) {}
+  constructor(
+    private AuthService: AuthService,
+    private navbarService: NavbarService
+  ) {}
 
   ngOnInit() {
-    this.navbarService.changeHeaderTitle('Sign Up') // Send the title to NavbarService
+    this.navbarService.changeHeaderTitle('Sign Up'); // Send the title to NavbarService
 
     this.signupForm = new FormGroup({
       name: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', Validators.required),
     });
   }
 
@@ -37,6 +41,7 @@ export class SignupComponent implements OnInit {
       name: this.signupForm.get('name').value,
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
+      phone: this.signupForm.get('phone').value,
     };
 
     this.AuthService.SignUp(userInfo).subscribe(

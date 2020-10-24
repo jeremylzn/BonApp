@@ -3,10 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { MenuItem } from '../models/menu-item.model';
 import { Order } from '../models/order.model';
 import { NotificationsService } from './notifications.service';
+import { AuthService } from './auth.service';
+
+interface GuestCustomerDetails {
+  name: string;
+  phone: string;
+  address?: string;
+  isGuest?: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +30,8 @@ export class OrderService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private authService: AuthService
   ) {}
 
   getMenu() {
@@ -88,20 +98,65 @@ export class OrderService {
   }
 
   //TODO: add order as guest feature
-  submitOrder() {
+  submitOrder(guestCustomerDetails?: GuestCustomerDetails) {
+    let customerDetails = this.authService.isLoggedIn()
+      ? this.authService.getUserDetails()
+      : guestCustomerDetails;
+
+    console.log(customerDetails);
+
     return this.http
-      .post<any>(this.rootUrl + 'orders', { items: this.shoppingCart })
+      .post<any>(this.rootUrl + 'orders', {
+        items: this.shoppingCart,
+        customerDetails: customerDetails,
+      })
       .pipe(
         tap((res) => {
           console.log(res);
-          this.notificationService.addNotification({
-            title: 'Order successfully',
-            date: `${res.order.date} | ${res.order.time}`,
-            seen: false,
-          });
+          if (this.authService.isLoggedIn()) {
+            this.notificationService.addNotification({
+              title: 'Order successfully',
+              date: `${res.order.date} | ${res.order.time}`,
+              seen: false,
+            });
+          }
+
           // UX: 500ms delay
           setTimeout(() => this.clearShoppingCart(), 500);
         })
       );
+  }
+
+  handleGuestOrder() {
+    Swal.fire({
+      title: 'Enter guest info',
+      html: `<input type="text" id="name" class="swal2-input" placeholder="Full name">
+      <input type="text" id="phone" class="swal2-input" placeholder="Phone number">`,
+      confirmButtonText: 'Submit',
+      showCancelButton: true,
+      focusConfirm: false,
+      preConfirm: () => {
+        const name = Swal.getPopup().querySelector('#name').value;
+        const phone = Swal.getPopup().querySelector('#phone').value;
+        if (!name || !phone) {
+          Swal.showValidationMessage(`Please enter login and password`);
+        }
+        return { name: name, phone: phone };
+      },
+    })
+      .then((result) => {
+        Swal.fire(
+          `
+        Thank you, ${result.value.name}
+      `.trim()
+        );
+
+        this.submitOrder({
+          name: result.value.name,
+          phone: result.value.phone,
+          isGuest: true
+        }).subscribe();
+      })
+      .catch((err) => {});
   }
 }

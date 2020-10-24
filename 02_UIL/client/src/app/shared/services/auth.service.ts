@@ -12,6 +12,7 @@ import { AuthResponseData } from '../models/login-response-data.model';
 export class AuthService {
   readonly rootUrl = 'http://localhost:3000/';
   user = new BehaviorSubject<User>(null);
+  loggedIn = false;
 
   public token: String;
 
@@ -27,7 +28,8 @@ export class AuthService {
             res.user._id,
             res.user.token,
             false,
-            res.user.name
+            res.user.name,
+            res.user.phone
           );
         })
       );
@@ -43,7 +45,8 @@ export class AuthService {
             res.user._id,
             res.token,
             res.user.isAdmin,
-            res.user.name
+            res.user.name,
+            res.user.phone
           );
         })
       );
@@ -52,6 +55,7 @@ export class AuthService {
   public logout() {
     this.http.post(this.rootUrl + 'users/logout', {}).subscribe();
 
+    this.loggedIn = false;
     this.user.next(null);
     localStorage.removeItem('userData');
   }
@@ -61,11 +65,13 @@ export class AuthService {
     userID: string,
     token: string,
     isAdmin: boolean,
-    name: string
+    name: string,
+    phone: string
   ) {
-    const user = new User(email, userID, token, isAdmin, name);
+    const user = new User(email, userID, token, isAdmin, name, phone);
     this.token = token;
 
+    this.loggedIn = true;
     this.user.next(user);
 
     // Save logged user info in local storage for auto-login
@@ -79,6 +85,7 @@ export class AuthService {
       isAdmin: boolean;
       name: string;
       token: string;
+      phone: string;
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
@@ -90,10 +97,26 @@ export class AuthService {
       userData.id,
       userData.token,
       userData.isAdmin,
-      userData.name
+      userData.name,
+      userData.phone
     );
     this.token = loadedUser.token;
 
+    this.loggedIn = true;
     this.user.next(loadedUser);
+  }
+
+  public getUserDetails() {
+    const userDetails = {
+      name: this.user.value.name,
+      phone: this.user.value.phone,
+      address: this.user.value.address,
+    };
+
+    return userDetails;
+  }
+
+  public isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 }

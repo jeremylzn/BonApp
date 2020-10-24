@@ -20,11 +20,18 @@ export class AdminService {
     completed: null,
     customerID: '',
     date: '',
+    customerDetails: null,
     items: null,
     time: '',
     totalPrice: null,
   };
-  public currentUser: User = { isAdmin: null, _id: '', name: '', email: '' };
+  public currentUser: User = {
+    isAdmin: null,
+    _id: '',
+    name: '',
+    email: '',
+    phone: '',
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -66,8 +73,6 @@ export class AdminService {
   }
 
   deleteUser(userId) {
-    return this.http.delete(
-      this.rootUrl + `admin/users/${userId}`
-    );
+    return this.http.delete(this.rootUrl + `admin/users/${userId}`);
   }
 }

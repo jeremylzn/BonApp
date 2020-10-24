@@ -7,6 +7,7 @@ export interface Order {
   completed: boolean;
   customerID: string;
   date: string;
+  customerDetails: string[];
   time?: string;
   totalPrice?: number;
 }

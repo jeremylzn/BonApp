@@ -4,7 +4,7 @@
     "description": "Meal Ordering and Delivery Platform",
     "main": "index.js",
     "scripts": {
-        "server": "nodemon 01_BLL/src/index.js ",
+        "server": "nodemon 01_BLL/src/index.js",
         "ng": "(cd 02_UIL/client && ng serve)",
         "dev": "(cd 02_UIL/client && ng build) & nodemon ./01_BLL/src/index.js"
     },

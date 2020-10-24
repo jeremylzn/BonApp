@@ -5,7 +5,9 @@
 >
   <!-- Card Header -->
   <div class="card-header d-flex justify-content-between">
-    <h5><span class="badge badge-secondary">#{{order.orderID}}</span></h5>
+    <h5>
+      <span class="badge badge-secondary">#{{ order.orderID }}</span>
+    </h5>
     <h5>
       <span class="badge badge-light">{{ orderTime }}</span>
     </h5>
@@ -13,7 +15,10 @@
   <!-- Card Body -->
   <div class="row card-body">
     <div class="list-group">
-      <div class="list-group-item mx-2 mb-1 history-item" *ngFor="let item of order.items">
+      <div
+        class="list-group-item mx-2 mb-1 history-item text-center"
+        *ngFor="let item of order.items"
+      >
         <small>{{ item.quantity }} <small>x</small> {{ item.name }}</small>
       </div>
     </div>
