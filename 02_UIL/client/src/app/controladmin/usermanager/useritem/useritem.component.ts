@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../../shared/models/login-response-data.model';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { DatePipe } from '@angular/common';
+
 import { AdminService } from 'src/app/shared/services/admin.service';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 @Component({
   selector: 'tr[app-useritem]',
@@ -13,7 +16,7 @@ export class UseritemComponent implements OnInit {
 
   public itemToUpdate = {};
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private notificationService: NotificationsService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -57,16 +60,14 @@ export class UseritemComponent implements OnInit {
                         this.itemToUpdate['isAdmin'] = true;
                         this.adminService
                           .updateUser(this.itemToUpdate, this.user._id)
-                          .subscribe((res) => {
-                            console.log(res);
-                          });
+                          .subscribe((res) => {});
+                        this.sendNotification(this.user._id)
                       } else {
                         this.itemToUpdate['isAdmin'] = false;
                         this.adminService
                           .updateUser(this.itemToUpdate, this.user._id)
-                          .subscribe((res) => {
-                            console.log(res);
-                          });
+                          .subscribe((res) => {});
+                        this.sendNotification(this.user._id)
                       }
                     },
                   },
@@ -98,9 +99,8 @@ export class UseritemComponent implements OnInit {
         console.log(this.itemToUpdate);
         this.adminService
           .updateUser(this.itemToUpdate, this.user._id)
-          .subscribe((res) => {
-            console.log(res);
-          });
+          .subscribe((res) => {});
+        this.sendNotification(this.user._id)
         Swal.fire({
           title: 'Updated!',
           text: 'The user has been updated.',
@@ -127,4 +127,15 @@ export class UseritemComponent implements OnInit {
       } else return;
     });
   }
+
+  sendNotification(userId){
+    var dateNow = new Date();
+    this.notificationService.sendNotification({
+      title: 'Your user has been updated !',
+      date: this.datePipe.transform(dateNow,"yyyy-MM-dd | HH:mm:ss"),
+      seen: false,
+    }, userId);
+  }
+  
+
 }

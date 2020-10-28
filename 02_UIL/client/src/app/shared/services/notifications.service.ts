@@ -28,6 +28,16 @@ export class NotificationsService {
       .subscribe();
   }
 
+  sendNotification(notification: NotificationMsg, id:string) {
+    this.http
+      .post<NotificationMsg>(this.rootUrl + `notification/${id}`, notification)
+      .pipe(
+        tap((res) => {
+        })
+      )
+      .subscribe();
+  }
+
   fetchNotifications() {
     return this.http
       .get<NotificationMsg[]>(this.rootUrl + 'notification')

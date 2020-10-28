@@ -9,14 +9,14 @@ import { AdminService } from '../../shared/services/admin.service';
   styleUrls: ['./userdetails.component.css']
 })
 export class UserdetailsComponent implements OnInit {
-  public currentUser:User;
+  public currentUser:any;
 
 
   constructor(private AdminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.currentUser=this.AdminService.currentUser
+    this.currentUser=this.AdminService.currentOrder.customerDetails
   }
 
 }
