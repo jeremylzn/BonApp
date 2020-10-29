@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
 import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.component';
 import { MenumanageritemComponent } from './controladmin/menumanager/menumanageritem/menumanageritem.component';
+import { AllOrdersHistoryComponent } from './all-orders-history/all-orders-history.component';
+import { OrderItemComponent } from './all-orders-history/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,8 @@ import { MenumanageritemComponent } from './controladmin/menumanager/menumanager
     MenumanagerComponent,
     UseritemComponent,
     MenumanageritemComponent,
+    AllOrdersHistoryComponent,
+    OrderItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +72,7 @@ import { MenumanageritemComponent } from './controladmin/menumanager/menumanager
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptor, multi: true },
+    [DatePipe]
   ],
   bootstrap: [AppComponent],
 })

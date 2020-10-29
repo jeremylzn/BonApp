@@ -8,6 +8,7 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { UsermanagerComponent } from './controladmin/usermanager/usermanager.component';
 import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { AllOrdersHistoryComponent } from './all-orders-history/all-orders-history.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,7 +39,12 @@ const routes: Routes = [
   { path: 'controladmin/users',
     component: UsermanagerComponent
   },
-  { path: 'controladmin/menu', component: MenumanagerComponent },
+  { path: 'controladmin/menu',
+    component: MenumanagerComponent
+  },
+  { path: 'admin/history',
+  component: AllOrdersHistoryComponent
+},
 
 ];
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common'
 
 import { AdminService } from '../shared/services/admin.service';
 import { NavbarService } from '../shared/services/navbar.service';
@@ -7,6 +7,7 @@ import { Order } from '../shared/models/order.model';
 import { Observable } from 'rxjs';
 import { fade } from '../animations';
 import { Router } from '@angular/router';
+import { NotificationsService } from '../shared/services/notifications.service';
 
 @Component({
   selector: 'app-activities',
@@ -22,7 +23,7 @@ export class ActivitiesComponent implements OnInit {
   allOrdersCompleted: Order[] = [];
   isLoading: boolean = true;
 
-  constructor(private AdminService: AdminService, private navbarService: NavbarService, private router:Router) {}
+  constructor(private AdminService: AdminService, private navbarService: NavbarService, private notificationService: NotificationsService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     this.navbarService.changeHeaderTitle('Active Orders') // Send the title to NavbarService
@@ -46,10 +47,15 @@ export class ActivitiesComponent implements OnInit {
   }
 
   orderCompleted() {
+    var dateNow = new Date();
     var completed = { completed: !this.AdminService.currentOrder.completed };
     this.AdminService.UpdateOrder(completed).subscribe((res) => {});
     this.allOrdersAndUsers();
     this.details=false;
-
+    this.notificationService.sendNotification({
+      title: 'Your order is ready !',
+      date: this.datePipe.transform(dateNow,"yyyy-MM-dd | HH:mm:ss"),
+      seen: false,
+    }, this.AdminService.currentOrder.customerID);
   }
 }

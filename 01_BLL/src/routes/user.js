@@ -97,6 +97,19 @@ router.post('/notification', auth, async(req, res) => {
     }
 })
 
+// ADMIN - Add a new notification to another user
+router.post('/notification/:id', authAsAdmin, async(req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        user.notifications.unshift(req.body) // unshift inserts the notification to the beginning of the array
+        await user.save()
+        res.status(200).send(req.body)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 // Get all user's notifications
 router.get('/notification', auth, async(req, res) => {
     try {
