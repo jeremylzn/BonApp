@@ -31,6 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenumanagerComponent } from './controladmin/menumanager/menumanager.component';
 import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.component';
 import { MenumanageritemComponent } from './controladmin/menumanager/menumanageritem/menumanageritem.component';
+import { AllOrdersHistoryComponent } from './all-orders-history/all-orders-history.component';
+import { OrderItemComponent } from './all-orders-history/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { MenumanageritemComponent } from './controladmin/menumanager/menumanager
     MenumanagerComponent,
     UseritemComponent,
     MenumanageritemComponent,
+    AllOrdersHistoryComponent,
+    OrderItemComponent,
   ],
   imports: [
     BrowserModule,

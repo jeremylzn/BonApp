@@ -25,7 +25,10 @@
                     <a class="nav-item nav-link admin_options" routerLink="/activities">Active Orders</a
           >
         </li>
-    <!-- routerLink="/controladmin" -->
+        <li routerLinkActive="active" *ngIf="isAdmin">
+            <a class="nav-item nav-link admin_options" routerLink="/admin/history">All Orders History</a
+  >
+</li>
     <li class="nav-item dropdown" routerLinkActive="active" *ngIf="isAdmin">
         <a class="nav-link dropdown-toggle admin_options" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Control Admin

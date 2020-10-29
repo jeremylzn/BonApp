@@ -1,0 +1,8 @@
+<td>#{{order.orderID}}</td>
+<td> {{order.customerDetails['name']}}</td>
+<td> {{order.customerDetails['phone']}}</td>
+<td>
+    <a class="badge badge-pill badge-warning" (click)='showItem(order.items)'>Show items</a>
+</td>
+<td>₪{{order.totalPrice}}</td>
+<td> {{order.date}} | {{order.time}}</td>
