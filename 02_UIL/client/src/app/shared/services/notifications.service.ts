@@ -52,9 +52,9 @@ export class NotificationsService {
 
   markNotificationsAsSeen() {
     return this.http
-      .post<NotificationMsg[]>(this.rootUrl + 'notification/read', {})
+      .post<NotificationMsg[]>(this.rootUrl + 'notifications/read', {})
       .pipe(
-        tap((response) => {
+        tap(() => {
           this.notifications.forEach(
             (notification) => (notification.seen = true)
           );
