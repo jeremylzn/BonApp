@@ -38,9 +38,7 @@ export class OrdercardComponent implements OnInit {
     this.details=true;
     this.sendFlag.emit(this.details);
     for(var key in order) this.AdminService.currentOrder[key]=order[key];
-    let tempUser:User=this.AdminService.allUsers.find(e=>e._id==order.customerID);
-    for(var key in tempUser) this.AdminService.currentUser[key]=tempUser[key];
-
+    for(var key in this.AdminService.currentOrder.customerDetails) this.AdminService.currentUser[key]=this.AdminService.currentOrder.customerDetails[key];
   }
 
 }

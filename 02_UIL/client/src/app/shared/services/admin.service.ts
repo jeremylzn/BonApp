@@ -25,12 +25,10 @@ export class AdminService {
     time: '',
     totalPrice: null,
   };
-  public currentUser: User = {
-    isAdmin: null,
-    _id: '',
-    name: '',
-    email: '',
-    phone: '',
+  public currentUser: any = {
+    'name': '',
+    'phone': '',
+    'address': ''
   };
 
   constructor(private http: HttpClient) {}
