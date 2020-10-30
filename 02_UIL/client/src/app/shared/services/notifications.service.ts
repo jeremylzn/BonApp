@@ -33,6 +33,7 @@ export class NotificationsService {
       .post<NotificationMsg>(this.rootUrl + `notification/${id}`, notification)
       .pipe(
         tap((res) => {
+          this.notificationsChanged.next(this.notifications);
         })
       )
       .subscribe();
@@ -52,9 +53,9 @@ export class NotificationsService {
 
   markNotificationsAsSeen() {
     return this.http
-      .post<NotificationMsg[]>(this.rootUrl + 'notification/read', {})
+      .post<NotificationMsg[]>(this.rootUrl + 'notifications/read', {})
       .pipe(
-        tap((response) => {
+        tap(() => {
           this.notifications.forEach(
             (notification) => (notification.seen = true)
           );

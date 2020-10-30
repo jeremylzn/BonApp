@@ -120,7 +120,7 @@ router.get('/notification', auth, async(req, res) => {
 })
 
 // Mark all user's notifications as seen
-router.post('/notification/read', auth, async(req, res) => {
+router.post('/notifications/read', auth, async(req, res) => {
     try {
         req.user.notifications.forEach((notification) => { notification.seen = true })
 
