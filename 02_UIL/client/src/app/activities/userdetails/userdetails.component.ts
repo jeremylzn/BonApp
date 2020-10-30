@@ -12,11 +12,11 @@ export class UserdetailsComponent implements OnInit {
   public currentUser:any;
 
 
-  constructor(private AdminService: AdminService) {
+  constructor(private adminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.currentUser=this.AdminService.currentOrder.customerDetails
+    this.currentUser=this.adminService.currentUser
   }
 
 }

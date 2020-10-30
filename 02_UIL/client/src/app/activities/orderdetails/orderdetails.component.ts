@@ -11,10 +11,10 @@ import { AdminService } from '../../shared/services/admin.service';
 export class OrderdetailsComponent implements OnInit {
   public currentOrder:Order;
 
-  constructor(private AdminService: AdminService) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.currentOrder=this.AdminService.currentOrder;
+    this.currentOrder=this.adminService.currentOrder;
   }
 
 }
