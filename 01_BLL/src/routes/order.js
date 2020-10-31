@@ -1,4 +1,5 @@
 const express = require('express')
+const nodemailer = require('nodemailer')
 const router = new express.Router()
 const Order = require('../../../00_DAL/models/order')
 const auth = require('../middleware/auth')
@@ -14,6 +15,8 @@ router.post('/orders', auth, async(req, res) => {
 
     try {
         await order.save()
+
+        sendEmail(req.user.email); 
 
         res.status(201).send({ order })
     } catch (err) {
@@ -51,6 +54,32 @@ router.put('/admin/order/update/:id', authAsAdmin, async(req, res) => {
     res.send(result);
 });
 
+
+const sendEmail = (recipientEmail) => {
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USERNAME, // TODO: make enviorment variable
+          pass: process.env.EMAIL_PASSWORD
+        }
+      });
+
+      var mailOptions = {
+        from: 'bon.app.noreply@gmail.com',
+        to: recipientEmail,
+        subject: 'Sending Email using Node.js',
+        text: 'HELLO WORLD!'
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent to: ' + recipientEmail);
+          console.log(info.response);
+        }
+      });
+}
 
 
 module.exports = router
