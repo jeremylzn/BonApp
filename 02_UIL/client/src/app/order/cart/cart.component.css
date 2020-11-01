@@ -12,7 +12,7 @@
 
 .cart-items {
     overflow-y: auto;
-    max-height: 494px;
+    max-height: 427px;
 }
 
 .itemText {
@@ -48,6 +48,7 @@
     border-radius: 0;
     border-top: 1px solid #6c737d;
     border-bottom: 1px solid #6c737d;
+    width: 35px;
 }
 
 .minusBtn,

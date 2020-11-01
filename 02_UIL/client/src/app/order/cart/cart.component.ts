@@ -61,7 +61,7 @@ export class CartComponent implements OnInit {
     } else
       this.orderService.submitOrder().subscribe(
         (res) => {
-          // UX: Display loading spinner for 500ms and then success message ------- keep?
+          // UX: Display loading spinner for 500ms and then success message
           this.isLoading = true;
           setTimeout(() => {
             this.isLoading = false;

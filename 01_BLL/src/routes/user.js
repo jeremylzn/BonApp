@@ -3,6 +3,7 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const authAsAdmin = require('../middleware/authAsAdmin')
 const User = require('../../../00_DAL/models/user')
+const mailer = require('../middleware/send-email')
 
 // Sign up new user
 router.post('/users', async(req, res) => {
@@ -10,7 +11,8 @@ router.post('/users', async(req, res) => {
 
     try {
         await user.save()
-        const token = await user.generateAuthToken()
+        // const token = await user.generateAuthToken()
+        mailer.sendSignupEmail(req.body.email, req.body.name)
 
         res.status(201).send({ user })
     } catch (err) {
@@ -120,7 +122,7 @@ router.get('/notification', auth, async(req, res) => {
 })
 
 // Mark all user's notifications as seen
-router.post('/notification/read', auth, async(req, res) => {
+router.post('/notifications/read', auth, async(req, res) => {
     try {
         req.user.notifications.forEach((notification) => { notification.seen = true })
 

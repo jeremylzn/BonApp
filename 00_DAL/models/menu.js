@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 const User = require('./user')
 const moment = require('moment')
-const category = require('./enum')
-
-
 
 const itemMenuSchema = new mongoose.Schema({
     itemID: {

@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.autoLogin();
 
-    this.menuService.getAllMenu().subscribe((res) => {});
-
+    // this.menuService.getAllMenu();
   }
 }
