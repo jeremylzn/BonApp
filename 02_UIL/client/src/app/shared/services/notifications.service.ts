@@ -33,6 +33,7 @@ export class NotificationsService {
       .post<NotificationMsg>(this.rootUrl + `notification/${id}`, notification)
       .pipe(
         tap((res) => {
+          this.notifications.unshift(res);
           this.notificationsChanged.next(this.notifications);
         })
       )
