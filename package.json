@@ -24,7 +24,6 @@
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "file-saver": "^2.0.2",
-        "jquery": "^3.5.1",
         "jsonwebtoken": "^8.5.1",
         "mailgen": "^2.0.14",
         "moment": "^2.29.1",

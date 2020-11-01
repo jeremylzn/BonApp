@@ -18,15 +18,16 @@ export class OrdercardComponent implements OnInit {
   @Output() sendFlag:EventEmitter<boolean>=new EventEmitter<boolean>();
 
   details:boolean=false;
-  userCard:User;
+  userCard:any;
 
   constructor(private AdminService: AdminService) {}
 
   ngOnInit(): void {
-    for(var user of this.AdminService.allUsers){
-      if(user._id==this.order.customerID)
-        this.userCard=user
-    }
+    // for(var user of this.AdminService.allUsers){
+    //   if(user._id==this.order.customerID)
+    //     this.userCard=user
+    // }
+    this.userCard = this.order.customerDetails
     setTimeout(() => {
       if(this.index===1){
         this.ChangeDetails(this.order);

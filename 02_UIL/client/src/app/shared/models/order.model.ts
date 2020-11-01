@@ -10,4 +10,5 @@ export interface Order {
   customerDetails: string[];
   time?: string;
   totalPrice?: number;
+  notes?:string
 }
