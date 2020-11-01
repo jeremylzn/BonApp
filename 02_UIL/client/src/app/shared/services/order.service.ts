@@ -24,6 +24,7 @@ export class OrderService {
   readonly rootUrl = 'http://localhost:3000/';
   cartChanged = new Subject<MenuItem[]>();
   menu: MenuItem[] = [];
+  currentNote:String = ''
 
   private shoppingCart: MenuItem[] = [];
 
@@ -109,6 +110,7 @@ export class OrderService {
       .post<any>(this.rootUrl + 'orders', {
         items: this.shoppingCart,
         customerDetails: customerDetails,
+        notes:this.currentNote
       })
       .pipe(
         tap((res) => {

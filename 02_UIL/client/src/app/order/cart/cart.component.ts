@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { MenuItem } from '../../shared/models/menu-item.model';
 
@@ -12,7 +13,7 @@ import { MenuItem } from '../../shared/models/menu-item.model';
 export class CartComponent implements OnInit {
   shoppingCart: MenuItem[] = [];
   totalPrice: number = 0;
-
+  hasNote:boolean = false;
   orderCompleted: boolean = false;
   isLoading: boolean = false;
 
@@ -70,4 +71,25 @@ export class CartComponent implements OnInit {
         (errResponse) => console.log(errResponse.error.error)
       );
   }
+
+  async addNote() {
+    const { value: text } = await Swal.fire({
+      title: 'Add personal note to the chef !',
+      icon: 'warning',
+      input: 'textarea',
+      inputPlaceholder: 'Type your note here...',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Add'
+    });
+    if (text) {
+      Swal.fire({
+        title: 'Note added',
+        icon: 'success'
+      })
+      this.orderService.currentNote = text
+      this.hasNote = true
+    }
+  }
+
 }

@@ -1,69 +1,75 @@
 .remove-btn,
 .clear-btn {
-  cursor: pointer;
-  color: blue;
-  font-size: 14px;
+    cursor: pointer;
+    color: blue;
+    font-size: 14px;
+}
+
+.badge {
+    cursor: pointer;
+    background-color: blue;
 }
 
 .cart-items {
-  overflow-y: auto;
-  max-height: 494px;
+    overflow-y: auto;
+    max-height: 494px;
 }
 
 .itemText {
-  font-size: 18px;
-  font-weight: 700;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .alert-success {
-  margin-top: 3%;
+    margin-top: 3%;
 }
 
 .cart {
-  position: fixed;
-  width: 30%;
+    position: fixed;
+    width: 30%;
 }
 
 .btn-sm {
-  height: 30px;
-  width: 30px;
-  border: none;
-  border-top: 1px solid #6c737d;
-  border-bottom: 1px solid #6c737d;
-  /* font-size: 10px; */
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-top: 1px solid #6c737d;
+    border-bottom: 1px solid #6c737d;
+    /* font-size: 10px; */
 }
+
 .btn:focus,
 .btn:active {
-  box-shadow: none !important;
-  outline: 0px !important;
+    box-shadow: none !important;
+    outline: 0px !important;
 }
 
 .quantityText {
-  border-radius: 0;
-  border-top: 1px solid #6c737d;
-  border-bottom: 1px solid #6c737d;
+    border-radius: 0;
+    border-top: 1px solid #6c737d;
+    border-bottom: 1px solid #6c737d;
 }
 
 .minusBtn,
 .plusBtn {
-  font-weight: bolder;
-  background-color: 6c737d;
+    font-weight: bolder;
+    background-color: 6c737d;
 }
 
 .minusBtn {
-  border-left: 1px solid #6c737d;
+    border-left: 1px solid #6c737d;
 }
 
 .plusBtn {
-  border-right: 1px solid #6c737d;
+    border-right: 1px solid #6c737d;
 }
 
 .footer {
-  min-width: 33%;
-  text-align: center;
-  padding-bottom: 20px;
+    min-width: 33%;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .clear-btn {
-  text-align: center;
+    text-align: center;
 }
