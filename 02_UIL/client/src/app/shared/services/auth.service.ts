@@ -29,7 +29,8 @@ export class AuthService {
             res.user.token,
             false,
             res.user.name,
-            res.user.phone
+            res.user.phone,
+            res.user.address
           );
         })
       );
@@ -46,7 +47,8 @@ export class AuthService {
             res.token,
             res.user.isAdmin,
             res.user.name,
-            res.user.phone
+            res.user.phone,
+            res.user.address
           );
         })
       );
@@ -66,9 +68,10 @@ export class AuthService {
     token: string,
     isAdmin: boolean,
     name: string,
-    phone: string
+    phone: string,
+    address: string
   ) {
-    const user = new User(email, userID, token, isAdmin, name, phone);
+    const user = new User(email, userID, token, isAdmin, name, phone, address);
     this.token = token;
 
     this.loggedIn = true;
@@ -86,6 +89,7 @@ export class AuthService {
       name: string;
       token: string;
       phone: string;
+      address: string;
     } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
@@ -98,7 +102,8 @@ export class AuthService {
       userData.token,
       userData.isAdmin,
       userData.name,
-      userData.phone
+      userData.phone,
+      userData.address
     );
     this.token = loadedUser.token;
 

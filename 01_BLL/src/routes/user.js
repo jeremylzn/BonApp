@@ -11,10 +11,10 @@ router.post('/users', async(req, res) => {
 
     try {
         await user.save()
-        // const token = await user.generateAuthToken()
+        const token = await user.generateAuthToken()
         mailer.sendSignupEmail(req.body.email, req.body.name)
 
-        res.status(201).send({ user })
+        res.status(201).send({ user, token })
     } catch (err) {
         res.status(400).send(err)
     }

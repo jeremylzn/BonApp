@@ -24,7 +24,7 @@ export class OrderService {
   readonly rootUrl = 'http://localhost:3000/';
   cartChanged = new Subject<MenuItem[]>();
   menu: MenuItem[] = [];
-  currentNote:String = ''
+  currentNote: String = '';
 
   private shoppingCart: MenuItem[] = [];
 
@@ -79,6 +79,7 @@ export class OrderService {
 
   clearShoppingCart() {
     this.shoppingCart = [];
+    this.currentNote = '';
     this.cartChanged.next(this.shoppingCart);
   }
 
@@ -98,7 +99,6 @@ export class OrderService {
     this.cartChanged.next(this.shoppingCart);
   }
 
-  //TODO: add order as guest feature
   submitOrder(guestCustomerDetails?: GuestCustomerDetails) {
     let customerDetails = this.authService.isLoggedIn()
       ? this.authService.getUserDetails()
@@ -110,7 +110,7 @@ export class OrderService {
       .post<any>(this.rootUrl + 'orders', {
         items: this.shoppingCart,
         customerDetails: customerDetails,
-        notes:this.currentNote
+        notes: this.currentNote,
       })
       .pipe(
         tap((res) => {
@@ -133,31 +133,39 @@ export class OrderService {
     Swal.fire({
       title: 'Enter guest info',
       html: `<input type="text" id="name" class="swal2-input" placeholder="Full name">
-      <input type="text" id="phone" class="swal2-input" placeholder="Phone number">`,
+      <input type="text" id="phone" class="swal2-input" placeholder="Phone number">
+      <input type="text" id="address" class="swal2-input" placeholder="Address">`,
       confirmButtonText: 'Submit',
       showCancelButton: true,
       focusConfirm: false,
       preConfirm: () => {
         const name = Swal.getPopup().querySelector('#name').value;
         const phone = Swal.getPopup().querySelector('#phone').value;
+        const address = Swal.getPopup().querySelector('#address').value;
         if (!name || !phone) {
-          Swal.showValidationMessage(`Please enter login and password`);
+          Swal.showValidationMessage(`Please enter your details`);
         }
-        return { name: name, phone: phone };
+        return { name: name, phone: phone, address: address };
       },
     })
       .then((result) => {
-        Swal.fire(
-          `
-        Thank you, ${result.value.name}
-      `.trim()
-        );
+        Swal.fire({
+          title: `Thank you, ${result.value.name}!`,
+          text: 'Your order has been successfully placed.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.submitOrder({
+            name: result.value.name,
+            phone: result.value.phone,
+            address: result.value.address,
+            isGuest: true,
+          }).subscribe(() => {
+            this.clearShoppingCart();
+          });
+        })
 
-        this.submitOrder({
-          name: result.value.name,
-          phone: result.value.phone,
-          isGuest: true
-        }).subscribe();
+        
       })
       .catch((err) => {});
   }

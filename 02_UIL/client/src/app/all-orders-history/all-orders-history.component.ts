@@ -9,7 +9,6 @@ import { NavbarService } from '../shared/services/navbar.service';
   styleUrls: ['./all-orders-history.component.css']
 })
 export class AllOrdersHistoryComponent implements OnInit {
-
   allOrders: Order[] = [];
 
   constructor(private adminService: AdminService, private navbarService: NavbarService) { }
@@ -19,6 +18,7 @@ export class AllOrdersHistoryComponent implements OnInit {
 
     this.adminService.getAllOrders().subscribe((res) => {
       this.allOrders = this.adminService.allOrdersCompleted;
+      this.allOrders.reverse();
     });
 
   }

@@ -21,7 +21,7 @@ export class OrderdetailsComponent implements OnInit {
 
   showNote(message){
     Swal.fire({
-    title: 'Customer message :',
+    title: 'Customer message:',
     icon: 'info',
     text: message,
     })

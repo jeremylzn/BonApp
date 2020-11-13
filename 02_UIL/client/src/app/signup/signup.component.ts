@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
       confirmPassword: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
     });
   }
 
@@ -42,6 +43,7 @@ export class SignupComponent implements OnInit {
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
       phone: this.signupForm.get('phone').value,
+      address: this.signupForm.get('address').value,
     };
 
     this.AuthService.SignUp(userInfo).subscribe(

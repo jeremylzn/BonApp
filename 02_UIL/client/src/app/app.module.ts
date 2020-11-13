@@ -33,6 +33,7 @@ import { UseritemComponent } from './controladmin/usermanager/useritem/useritem.
 import { MenumanageritemComponent } from './controladmin/menumanager/menumanageritem/menumanageritem.component';
 import { AllOrdersHistoryComponent } from './all-orders-history/all-orders-history.component';
 import { OrderItemComponent } from './all-orders-history/order-item/order-item.component';
+import { CategoryListComponent } from './order/category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { OrderItemComponent } from './all-orders-history/order-item/order-item.c
     MenumanageritemComponent,
     AllOrdersHistoryComponent,
     OrderItemComponent,
+    CategoryListComponent,
   ],
   imports: [
     BrowserModule,
