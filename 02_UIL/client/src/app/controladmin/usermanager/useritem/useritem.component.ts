@@ -90,7 +90,7 @@ export class UseritemComponent implements OnInit {
         },
         {
           // If the choice isn't ADMIN
-          text: 'new value :',
+          text: 'New value:',
           input: 'text',
         },
       ])
@@ -113,13 +113,13 @@ export class UseritemComponent implements OnInit {
   deleteAlertBox() {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this.",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, cancel',
     }).then((res) => {
       if (res.isConfirmed) {
         this.adminService.deleteUser(this.user._id).subscribe((res) => {});
@@ -131,7 +131,7 @@ export class UseritemComponent implements OnInit {
   sendNotification(userId){
     var dateNow = new Date();
     this.notificationService.sendNotification({
-      title: 'Your user has been updated !',
+      title: 'User has been updated!',
       date: this.datePipe.transform(dateNow,"yyyy-MM-dd | HH:mm:ss"),
       seen: false,
     }, userId);

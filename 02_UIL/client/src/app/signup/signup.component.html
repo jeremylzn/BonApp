@@ -60,7 +60,27 @@
           !signupForm.get('phone').valid && signupForm.get('phone').touched
         "
         class="text-danger"
-        >The value is not a valid email address</label
+        >This field is required!</label
+      >
+    </div>
+
+    <!-- Address input-->
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-map-marker fa-2x"></i></span
+        ><br />
+        <input
+          formControlName="address"
+          class="ml-4 form-control rounded-pill form-control-md"
+          placeholder="Address"
+        />
+      </div>
+      <label
+        *ngIf="
+          !signupForm.get('address').valid && signupForm.get('address').touched
+        "
+        class="text-danger"
+        >This field is required!</label
       >
     </div>
 

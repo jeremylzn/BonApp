@@ -14,7 +14,13 @@ router.post("/orders", auth, async (req, res) => {
 
   try {
     await order.save();
-    mailer.sendReceiptEmail(req.user.email, req.user.name, order.items, order.totalPrice);
+    if (req.user)
+      mailer.sendReceiptEmail(
+        req.user.email,
+        req.user.name,
+        order.items,
+        order.totalPrice
+      );
 
     res.status(201).send({ order });
   } catch (err) {

@@ -44,6 +44,7 @@ export class CartComponent implements OnInit {
   }
 
   onClearCart() {
+    this.hasNote = false;
     this.orderService.clearShoppingCart();
   }
 
@@ -66,6 +67,7 @@ export class CartComponent implements OnInit {
           setTimeout(() => {
             this.isLoading = false;
             this.orderCompleted = true;
+            this.onClearCart();
           }, 500);
         },
         (errResponse) => console.log(errResponse.error.error)
@@ -74,10 +76,10 @@ export class CartComponent implements OnInit {
 
   async addNote() {
     const { value: text } = await Swal.fire({
-      title: 'Add personal note to the chef !',
+      title: 'Add a personal note to the chef',
       icon: 'warning',
       input: 'textarea',
-      inputPlaceholder: 'Type your note here...',
+      inputPlaceholder: 'Type your note here',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       confirmButtonText: 'Add'
