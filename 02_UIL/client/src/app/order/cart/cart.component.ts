@@ -15,6 +15,8 @@ export class CartComponent implements OnInit {
   totalPrice: number = 0;
   hasNote:boolean = false;
   orderCompleted: boolean = false;
+  orderFailed: boolean = false;
+  invalidItemName:string;
   isLoading: boolean = false;
 
   constructor(
@@ -62,15 +64,24 @@ export class CartComponent implements OnInit {
     } else
       this.orderService.submitOrder().subscribe(
         (res) => {
-          // UX: Display loading spinner for 500ms and then success message
+          // UX: Display loading spinner for 500ms and then success message / fail message
           this.isLoading = true;
           setTimeout(() => {
             this.isLoading = false;
             this.orderCompleted = true;
+            this.orderFailed = false;
             this.onClearCart();
           }, 500);
         },
-        (errResponse) => console.log(errResponse.error.error)
+        (errResponse) => {
+          this.isLoading = true;
+          this.invalidItemName = errResponse.error.item;
+          setTimeout(() => {
+            this.isLoading = false;
+            this.orderFailed = true;
+            this.orderCompleted = false;
+          }, 500);
+        }
       );
   }
 
