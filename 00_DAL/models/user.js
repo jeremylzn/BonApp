@@ -93,7 +93,7 @@ userSchema.pre("save", async function (next) {
     user.password = await bcrypt.hash(user.password, 8);
   }
 
-  if (user.notifications.length > 5) {
+  if (user.notifications.length > 6) {
     user.notifications.pop();
   }
 

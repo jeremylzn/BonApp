@@ -1,41 +1,58 @@
 <div class="cart">
-    <div class="card">
-        <div class="card-body">
-            <!-- Submit button -->
-            <button (click)="onSubmitOrder()" class="btn btn-primary rounded-0 btn-block" [disabled]="shoppingCart.length == 0">
+  <div class="card">
+    <div class="card-body">
+      <!-- Submit button -->
+      <button
+        (click)="onSubmitOrder()"
+        class="btn btn-primary rounded-0 btn-block"
+        [disabled]="shoppingCart.length == 0"
+      >
         Submit
       </button>
 
-            <hr />
+      <hr />
 
-            <p *ngIf="shoppingCart.length == 0" class="text-center">
-                Your cart is empty
-            </p>
-            <!-- Cart items -->
-            <div class="cart-items">
-                <ul *ngFor="let item of shoppingCart; let i = index" class="list-group">
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="btn-group" role="group">
-                            <!-- Minus(-) Button -->
-                            <button type="button" class="btn btn-sm minusBtn" (click)="onChangeQuantity('-', i)">
+      <p *ngIf="shoppingCart.length == 0" class="text-center">
+        Your cart is empty
+      </p>
+      <!-- Cart items -->
+      <div class="cart-items">
+        <ul *ngFor="let item of shoppingCart; let i = index" class="list-group">
+          <div
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div class="btn-group" role="group">
+              <!-- Minus(-) Button -->
+              <button
+                type="button"
+                class="btn btn-sm minusBtn"
+                (click)="onChangeQuantity('-', i)"
+              >
                 –
               </button>
-                            <!-- Item Quantity -->
-                            <strong class="btn-sm quantityText text-center">{{
+              <!-- Item Quantity -->
+              <strong class="btn-sm quantityText text-center">{{
                 item.quantity
               }}</strong>
-                            <!-- Plus(+) Button -->
-                            <button type="button" class="btn btn-sm plusBtn" (click)="onChangeQuantity('+', i)">
+              <!-- Plus(+) Button -->
+              <button
+                type="button"
+                class="btn btn-sm plusBtn"
+                (click)="onChangeQuantity('+', i)"
+              >
                 +
               </button>
-                        </div>
-                        <!-- Item name -->
-                        <a class="itemText">{{ item.name }}</a>
-                        <div class="d-flex flex-column">
-                            <!-- Item price -->
-                            <a>₪{{ item.price * item.quantity }}</a>
-                            <!-- Remove Button -->
-                            <a class="pull-right remove-btn text-center" (click)="onRemoveItem(i)">Remove</a
+            </div>
+            <!-- Item name -->
+            <a class="itemText">{{ item.name }}</a>
+            <div class="d-flex flex-column">
+              <!-- Item price -->
+              <a>₪{{ item.price * item.quantity }}</a>
+              <!-- Remove Button -->
+              <a
+                class="pull-right remove-btn text-center"
+                (click)="onRemoveItem(i)"
+                >Remove</a
               >
             </div>
           </div>
@@ -44,17 +61,33 @@
     </div>
 
     <div class="d-flex justify-content-between" *ngIf="shoppingCart.length > 0">
-      <a class="footer" *ngIf="!hasNote"><span class="badge badge-pill badge-info" (click)='addNote()'><i class="fa fa-comments" aria-hidden="true"></i> Add note</span></a>
-                            <a class="footer" *ngIf="hasNote"><span class="badge badge-pill badge-info" (click)='addNote()'><i class="fa fa-comments" aria-hidden="true"></i> Edit note</span><br>
-      <span class="blockquote-footer">Note added</span></a>
-                            <a class="footer">Total price: ₪{{ totalPrice }}</a>
-                            <a class="footer "><span class="clear-btn" (click)="onClearCart()">Clear</span></a>
-                        </div>
-                    </div>
+      <a class="footer" *ngIf="!hasNote"
+        ><span class="badge badge-pill badge-info" (click)="addNote()"
+          ><i class="fa fa-comments" aria-hidden="true"></i> Add note</span
+        ></a
+      >
+      <a class="footer" *ngIf="hasNote"
+        ><span class="badge badge-pill badge-info" (click)="addNote()"
+          ><i class="fa fa-comments" aria-hidden="true"></i> Edit note</span
+        ><br />
+        <span class="blockquote-footer">Note added</span></a
+      >
+      <a class="footer">Total price: ₪{{ totalPrice }}</a>
+      <a class="footer"
+        ><span class="clear-btn" (click)="onClearCart()">Clear</span></a
+      >
+    </div>
+  </div>
 
-                    <!-- UX: Display loading spinner for 500ms before success alert -->
-                    <app-loading-spinner *ngIf="isLoading" class="d-flex justify-content-center"></app-loading-spinner>
-                    <div class="alert alert-success" role="alert" *ngIf="orderCompleted">
-                        Order successfully placed!
-                    </div>
-            </div>
+  <!-- UX: Display loading spinner for 500ms before success alert -->
+  <app-loading-spinner
+    *ngIf="isLoading"
+    class="d-flex justify-content-center"
+  ></app-loading-spinner>
+  <div class="alert alert-success" role="alert" *ngIf="orderCompleted">
+    Order successfully placed!
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="orderFailed">
+    {{invalidItemName}} doesn't exist in the menu.
+  </div>
+</div>

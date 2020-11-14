@@ -117,7 +117,7 @@ export class OrderService {
           console.log(res);
           if (this.authService.isLoggedIn()) {
             this.notificationService.addNotification({
-              title: 'Order successfully',
+              title: `Order #${res.order.orderID} placed`,
               date: `${res.order.date} | ${res.order.time}`,
               seen: false,
             });

@@ -3,16 +3,28 @@ const router = new express.Router();
 const auth = require("../middleware/auth");
 const authAsAdmin = require("../middleware/authAsAdmin");
 const Order = require("../../../00_DAL/models/order");
+const Menu = require("../../../00_DAL/models/menu");
 const mailer = require("../middleware/send-email");
 
 // Create a new order
 router.post("/orders", auth, async (req, res) => {
-  const order = new Order({
-    ...req.body,
-    customerID: req.user ? req.user._id : null,
-  });
+  let items = req.body.items;
 
   try {
+    for (let item of items) {
+      let found = await Menu.findOne({ name: item.name });
+
+      if (!found) {
+        res.status(404).send({item: item.name});
+        return;
+      }
+    }
+
+    const order = new Order({
+      ...req.body,
+      customerID: req.user ? req.user._id : null,
+    });
+
     await order.save();
     if (req.user)
       mailer.sendReceiptEmail(
@@ -24,7 +36,7 @@ router.post("/orders", auth, async (req, res) => {
 
     res.status(201).send({ order });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({error: err.message});
   }
 });
 
