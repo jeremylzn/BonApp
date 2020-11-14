@@ -53,7 +53,7 @@ export class ActivitiesComponent implements OnInit {
     this.allOrdersAndUsers();
     this.details=false;
     this.notificationService.sendNotification({
-      title: 'Your order is ready !',
+      title: `Order #${this.AdminService.currentOrder.orderID} is ready`,
       date: this.datePipe.transform(dateNow,"dd-MM-yyyy | HH:mm:ss"),
       seen: false,
     }, this.AdminService.currentOrder.customerID);
