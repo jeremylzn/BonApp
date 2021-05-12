@@ -28,7 +28,7 @@
         "mailgen": "^2.0.14",
         "moment": "^2.29.1",
         "mongoose": "^5.9.15",
-        "nodemailer": "^6.4.14",
+        "nodemailer": "^6.4.16",
         "popper.js": "^1.16.1",
         "validator": "^13.1.1"
     }
